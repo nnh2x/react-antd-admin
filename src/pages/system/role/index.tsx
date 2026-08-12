@@ -39,6 +39,7 @@ export default function Role() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [title, setTitle] = useState("");
 	const [detailData, setDetailData] = useState<Partial<RoleItemType> & { menus?: string[] }>({});
+	const [tableData, setTableData] = useState<RoleItemType[]>([]);
 
 	const actionRef = useRef<ActionType>(null);
 
@@ -49,11 +50,22 @@ export default function Role() {
 	};
 
 	const columns: ProColumns<RoleItemType>[] = [
+		{
+			key: "sort",
+			dataIndex: "sort",
+			title: "",
+			width: 48,
+			search: false,
+			disable: true,
+			fixed: "left",
+			render: () => null,
+		},
 		...getConstantColumns(t),
 		{
 			title: t("common.action"),
 			valueType: "option",
 			key: "option",
+			disable: true,
 			width: 120,
 			fixed: "right",
 			render: (text, record, _, action) => {
@@ -100,6 +112,17 @@ export default function Role() {
 			<BasicTable<RoleItemType>
 				adaptive
 				columns={columns}
+				columnsState={{
+					persistenceKey: "role-management-columns",
+					persistenceType: "localStorage",
+				}}
+				dataSource={tableData}
+				dragSortKey="sort"
+				onDataSourceChange={setTableData}
+				onDragSortEnd={(_, __, dataSource) => {
+					setTableData(dataSource);
+					window.$message?.success(t("system.role.dragSortSuccess"));
+				}}
 				actionRef={actionRef}
 				request={async (params) => {
 					// console.log(sort, filter);

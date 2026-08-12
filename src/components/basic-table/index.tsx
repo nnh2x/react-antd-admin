@@ -1,11 +1,11 @@
-import type { ParamsType, ProTableProps } from "@ant-design/pro-components";
+import type { ParamsType, ProTable, ProTableProps } from "@ant-design/pro-components";
 
 import type { TablePaginationConfig } from "antd";
 
 import { LoadingOutlined } from "@ant-design/icons";
-import { ProTable } from "@ant-design/pro-components";
+import { DragSortTable } from "@ant-design/pro-components";
 import { useSize } from "ahooks";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { footerHeight as layoutFooterHeight } from "#src/layout/constants";
@@ -16,6 +16,8 @@ import { isObject, isUndefined } from "#src/utils/is";
 import { BASIC_TABLE_ROOT_CLASS_NAME } from "./constants";
 import { useStyles } from "./styles";
 
+const Table = DragSortTable as typeof ProTable;
+
 export interface BasicTableProps<D, U, V> extends ProTableProps<D, U, V> {
 	/**
 	 * @description Adapt to the content area height. If scroll.y is set, this adaptation is skipped
@@ -25,6 +27,10 @@ export interface BasicTableProps<D, U, V> extends ProTableProps<D, U, V> {
 		/** Offset between the table and the bottom of the page, default value is `16` */
 		offsetBottom?: number
 	}
+	/** Column key containing the row drag handle. */
+	dragSortKey?: string
+	/** Called with the reordered data after a row is dropped. */
+	onDragSortEnd?: (beforeIndex: number, afterIndex: number, dataSource: D[]) => Promise<void> | void
 }
 
 export function BasicTable<
@@ -60,7 +66,7 @@ export function BasicTable<
 		return 0;
 	}, [enableFooter, fixedFooter]);
 
-	const getPaginationProps = () => {
+	const getPaginationProps = useCallback(() => {
 		if (props.pagination === false) {
 			return false;
 		}
@@ -73,7 +79,7 @@ export function BasicTable<
 			showTotal: total => t("common.pagination", { total }),
 			...props.pagination,
 		} satisfies TablePaginationConfig;
-	};
+	}, [props.pagination, t]);
 
 	/**
 	 * @description Calculate the pagination height
@@ -161,7 +167,7 @@ export function BasicTable<
 
 	return (
 		<div className="h-full" ref={tableWrapperRef}>
-			<ProTable
+			<Table<DataType, Params, ValueType>
 				cardBordered
 				rowKey="id"
 				dateFormatter="string"

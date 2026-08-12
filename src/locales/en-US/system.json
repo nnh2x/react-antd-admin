@@ -4,7 +4,8 @@
 		"id": "Role Id",
 		"addRole": "Add Role",
 		"editRole": "Edit Role",
-		"assignMenu": "Assign Menu"
+		"assignMenu": "Assign Menu",
+		"dragSortSuccess": "Table order updated"
 	},
 	"user": {
 		"name": "User Name",

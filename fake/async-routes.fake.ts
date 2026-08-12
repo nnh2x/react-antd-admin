@@ -1,5 +1,5 @@
 import { defineFakeRoute } from "vite-plugin-fake-server/client";
-import { about, home, outside, personalCenter, system } from "#/src/router/extra-info";
+import { about, home, personalCenter, system } from "#/src/router/extra-info";
 import { resultSuccess } from "./utils";
 
 const systemManagementRouter = {
@@ -91,51 +91,6 @@ const aboutRouter = {
 	},
 };
 
-const outsideRouter = {
-	path: "/outside",
-	handle: {
-		icon: "OutsidePageIcon",
-		title: "common.menu.outside",
-		order: outside,
-	},
-	children: [
-		{
-			path: "/outside/embedded",
-			handle: {
-				icon: "EmbeddedIcon",
-				title: "common.menu.embedded",
-			},
-			children: [
-				{
-					path: "/outside/embedded/ant-design",
-					handle: {
-						icon: "AntDesignOutlined",
-						title: "common.menu.antd",
-						iframeLink: "https://ant.design/",
-					},
-				},
-			],
-		},
-		{
-			path: "/outside/external-link",
-			handle: {
-				icon: "ExternalIcon",
-				title: "common.menu.externalLink",
-			},
-			children: [
-				{
-					path: "/outside/external-link/react-docs",
-					handle: {
-						icon: "RiReactjsLine",
-						title: "common.menu.reactDocs",
-						externalLink: "https://react.dev/",
-					},
-				},
-			],
-		},
-	],
-};
-
 const personalCenterRouter = {
 	path: "/personal-center",
 	handle: {
@@ -172,7 +127,6 @@ export default defineFakeRoute([
 					homeRouter,
 					aboutRouter,
 					systemManagementRouter,
-					outsideRouter,
 					personalCenterRouter,
 				],
 			);

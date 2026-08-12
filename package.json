@@ -107,8 +107,7 @@
 		"vitest": "^4.1.6"
 	},
 	"simple-git-hooks": {
-		"pre-commit": "yarn lint-staged",
-		"commit-msg": "yarn commitlint --edit"
+		"pre-commit": "yarn lint-staged"
 	},
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": [

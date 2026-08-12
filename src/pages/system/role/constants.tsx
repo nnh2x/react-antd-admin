@@ -15,7 +15,6 @@ export function getConstantColumns(t: TFunction<"translation", undefined>): ProC
 		{
 			title: t("system.role.name"),
 			dataIndex: "name",
-			disable: true,
 			ellipsis: true,
 			width: 120,
 			formItemProps: {
@@ -28,7 +27,6 @@ export function getConstantColumns(t: TFunction<"translation", undefined>): ProC
 			},
 		},
 		{
-			disable: true,
 			title: t("system.role.id"),
 			dataIndex: "code",
 			width: 120,
@@ -37,7 +35,6 @@ export function getConstantColumns(t: TFunction<"translation", undefined>): ProC
 			ellipsis: true,
 		},
 		{
-			disable: true,
 			title: t("common.status"),
 			dataIndex: "status",
 			valueType: "select",

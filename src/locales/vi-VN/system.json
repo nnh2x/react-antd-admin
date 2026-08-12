@@ -4,7 +4,8 @@
 		"id": "Id vai trò",
 		"addRole": "Thêm vai trò",
 		"editRole": "Sửa vai trò",
-		"assignMenu": "Gán menu"
+		"assignMenu": "Gán menu",
+		"dragSortSuccess": "Đã cập nhật thứ tự bảng"
 	},
 	"user": {
 		"name": "Tên người dùng",

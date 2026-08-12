@@ -1,5 +1,4 @@
 import {
-	AntDesignOutlined,
 	ApartmentOutlined,
 	CloudOutlined,
 	ContainerOutlined,
@@ -17,14 +16,13 @@ import {
 	TeamOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
-import { EmbeddedIcon, ExternalIcon, OutsidePageIcon, ProfileCardIcon } from "./local-icons";
-import { RiAccountCircleLine, RiReactjsLine, RiUserSettingsLine } from "./ri";
+import { ProfileCardIcon } from "./local-icons";
+import { RiAccountCircleLine, RiUserSettingsLine } from "./ri";
 
 /**
  * Icons used in the menu.
  */
 export const menuIcons: Record<string, any> = {
-	EmbeddedIcon,
 	HomeOutlined,
 	SafetyOutlined,
 	CloudOutlined,
@@ -34,11 +32,7 @@ export const menuIcons: Record<string, any> = {
 	NodeExpandOutlined,
 	SisternodeOutlined,
 	SubnodeOutlined,
-	OutsidePageIcon,
-	AntDesignOutlined,
 	ContainerOutlined,
-	ExternalIcon,
-	RiReactjsLine,
 	SettingOutlined,
 	UserOutlined,
 	TeamOutlined,
