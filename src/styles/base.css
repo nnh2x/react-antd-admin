@@ -1,4 +1,4 @@
-/* 不使用 tailwind.css 的 preflight，使用 antd 的 reset 样式，防止和 antd 的样式冲突 */
+/* Don't use Tailwind's preflight; use antd's reset styles instead to avoid conflicts with antd styles */
 @layer reset, antd;
 
 /* @see https://ant.design/docs/react/compatible-style-cn#resetcss */

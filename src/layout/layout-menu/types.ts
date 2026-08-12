@@ -1,25 +1,25 @@
 /**
- * 菜单项目类型
+ * Menu item type
  */
 export interface MenuItemType {
 	/**
-	 * 菜单路径,item 的唯一标志
+	 * Menu path, the unique identifier of the item
 	 */
 	key: string
 	/**
-	 * 菜单项标题
+	 * Menu item title
 	 */
 	label: React.ReactNode
 	/**
-	 * 子菜单的菜单项
+	 * Submenu items
 	 */
 	children?: MenuItemType[]
 	/**
-	 * 菜单图标
+	 * Menu icon
 	 */
 	icon?: React.ReactNode
 	/**
-	 * 是否禁用菜单
+	 * Whether the menu is disabled
 	 * @default false
 	 */
 	disabled?: boolean

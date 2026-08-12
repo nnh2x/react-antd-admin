@@ -12,7 +12,7 @@ export function Iframe() {
 
 	let title: string;
 	if (isValidElement(routeTitle)) {
-		// 当 routeTitle 是 React 元素时，尝试读取其 children 并翻译
+		// When routeTitle is a React element, try to read its children and translate them
 		const children = (routeTitle as ReactElement<{ children: string }>)?.props?.children;
 		title = typeof children === "string" ? t(children) : "";
 	}

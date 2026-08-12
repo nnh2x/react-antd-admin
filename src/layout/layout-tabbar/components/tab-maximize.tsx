@@ -1,17 +1,17 @@
-import { BasicButton } from "#src/components/basic-button";
-import { useTabsStore } from "#src/store/tabs";
-import { cn } from "#src/utils/cn";
-
 import { FullscreenExitOutlined, FullscreenOutlined } from "@ant-design/icons";
 import { useShallow } from "zustand/shallow";
+import { BasicButton } from "#src/components/basic-button";
+
+import { useTabsStore } from "#src/store/tabs";
+import { cn } from "#src/utils/cn";
 
 interface TabMaximizeProps {
 	className?: string
 }
 /**
- * 切换标签页最大化 / 最小化
+ * Toggle tab maximize / minimize
  *
- * @returns 返回标签页最大化 / 最小化的按钮组件
+ * @returns the tab maximize / minimize button component
  */
 export function TabMaximize({ className }: TabMaximizeProps) {
 	/**
@@ -21,7 +21,7 @@ export function TabMaximize({ className }: TabMaximizeProps) {
 	const { isMaximize } = useTabsStore(useShallow(state => ({ isMaximize: state.isMaximize })));
 	const { toggleMaximize } = useTabsStore(useShallow(state => ({ toggleMaximize: state.toggleMaximize })));
 
-	/** 切换最大化 / 最小化 */
+	/** Toggle maximize / minimize */
 	const onClick = () => {
 		toggleMaximize(!isMaximize);
 	};

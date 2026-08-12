@@ -1,8 +1,8 @@
-import logo from "#src/assets/svg/logo.svg?url";
-
 import { Typography } from "antd";
+
 import { clsx } from "clsx";
 import { useNavigate } from "react-router";
+import logo from "#src/assets/svg/logo.svg?url";
 
 import { headerHeight } from "../../constants";
 
@@ -14,8 +14,7 @@ export interface LogoProps {
 }
 
 /**
- * @zh 高度 48px
- * @en The height is 48px
+ * The height is 48px
  */
 export function Logo({ sidebarCollapsed, className }: LogoProps) {
 	const navigate = useNavigate();

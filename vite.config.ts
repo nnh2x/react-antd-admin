@@ -48,12 +48,15 @@ export default defineConfig({
 			enableBuild: false,
 		}),
 		/**
-		 * 点击页面 DOM 打开 IDE 并将光标自动定位到源代码位置
+		 * Click a DOM element on the page to open your IDE with the cursor
+		 * automatically positioned at the corresponding source code location.
 		 *
-		 * macOS 默认组合键 Option + Shift
-		 * Windows 默认组合键 Alt + Shift
-		 * 在 Web 页面上按住组合键时，移动鼠标即会在 DOM 上出现遮罩层并显示相关信息，鼠标点击一下，将自动打开 IDE 并将光标定位到元素对应的代码位置
-		 * 更多用法看 https://inspector.fe-dev.cn/guide/start.html
+		 * Default shortcut on macOS: Option + Shift
+		 * Default shortcut on Windows: Alt + Shift
+		 * While holding the shortcut on the page, moving the mouse highlights the
+		 * hovered DOM element with an overlay showing its info; clicking it opens
+		 * the IDE at that element's source location.
+		 * More usage: https://inspector.fe-dev.cn/guide/start.html
 		 */
 		codeInspectorPlugin({
 			bundler: "vite",
@@ -61,7 +64,7 @@ export default defineConfig({
 		}),
 
 		/**
-		 * 按需加载图标
+		 * On-demand icon loading
 		 * https://github.com/antfu/unplugin-icons
 		 */
 		Icons({

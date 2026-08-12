@@ -1,18 +1,18 @@
 /**
- * 统一管理权限常量，避免在项目中到处写死字符串，便于维护。
+ * Manage permission constants in one place, avoiding hardcoded strings scattered across the project, for easier maintenance.
  */
 
 /**
- * 按钮权限前缀
+ * Button permission prefix
  */
 export const permissionPrefix = "permission:button";
 
 /**
- * 常见按钮权限：
- * - get: 获取
- * - update: 更新
- * - delete: 删除
- * - add: 新增
+ * Common button permissions:
+ * - get: fetch
+ * - update: update
+ * - delete: delete
+ * - add: create
  */
 export const accessControlCodes = {
 	get: `${permissionPrefix}:get`,

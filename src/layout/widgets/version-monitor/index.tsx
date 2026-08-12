@@ -4,12 +4,11 @@ import { useTranslation } from "react-i18next";
 
 interface AppVersionMonitorProps {
 	/**
-	 * @zh 轮训时间，单位：分钟，默认 1 分钟
-	 * @en Polling time, unit: minute, default 1 minute
+	 * Polling time, unit: minute, default 1 minute
 	 * @default 1
 	 */
 	checkUpdatesInterval?: number
-	// 检查更新的地址
+	// The URL to check for updates
 	checkUpdateUrl?: string
 }
 
@@ -116,7 +115,7 @@ export function AppVersionMonitor({
 			return;
 		}
 
-		// 首次运行时，获取当前版本号（防止 Nginx 缓存了 index.html）
+		// On first run, get the current version tag (to prevent Nginx from caching index.html)
 		if (!lastVersionTag.current) {
 			const currentVersionTag = await getVersionTag(true);
 			if (!currentVersionTag) {

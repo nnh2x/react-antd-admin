@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useDeviceType } from "#src/hooks/use-device-type";
 import {
 	MIXED_NAVIGATION,
@@ -5,19 +6,18 @@ import {
 	TOP_NAVIGATION,
 	TWO_COLUMN_NAVIGATION,
 } from "#src/layout/widgets/preferences/blocks/layout/constants";
+
 import { usePreferencesStore } from "#src/store/preferences";
 
-import { useMemo } from "react";
-
 /**
- * 获取当前页面的布局类型信息
+ * Get the layout type information of the current page
  *
- * @returns 返回包含当前布局类型信息的对象，包含：
- * - currentLayout: 当前导航类型
- * - isSideNav: 是否为侧边导航
- * - isTopNav: 是否为顶部导航
- * - isMixedNav: 是否为混合导航
- * - isTwoColumnNav: 是否为双列导航
+ * @returns Returns an object containing the current layout type information, including:
+ * - currentLayout: current navigation type
+ * - isSideNav: whether it is side navigation
+ * - isTopNav: whether it is top navigation
+ * - isMixedNav: whether it is mixed navigation
+ * - isTwoColumnNav: whether it is two-column navigation
  */
 export function useLayout() {
 	const { isMobile } = useDeviceType();
@@ -28,7 +28,7 @@ export function useLayout() {
 	const firstColumnWidthInTwoColumnNavigation = usePreferencesStore(state => state.firstColumnWidthInTwoColumnNavigation);
 
 	/**
-	 * 当前导航类型
+	 * Current navigation type
 	 */
 	const currentLayout = useMemo(
 		() => isMobile ? SIDE_NAVIGATION : navigationStyle,
@@ -36,7 +36,7 @@ export function useLayout() {
 	);
 
 	/**
-	 * 是否为侧边导航
+	 * Whether it is side navigation
 	 */
 	const isSideNav = useMemo(
 		() => currentLayout === SIDE_NAVIGATION,
@@ -44,7 +44,7 @@ export function useLayout() {
 	);
 
 	/**
-	 * 是否为顶部导航
+	 * Whether it is top navigation
 	 */
 	const isTopNav = useMemo(
 		() => currentLayout === TOP_NAVIGATION,
@@ -52,7 +52,7 @@ export function useLayout() {
 	);
 
 	/**
-	 * 是否为双列导航
+	 * Whether it is two-column navigation
 	 */
 	const isTwoColumnNav = useMemo(
 		() => currentLayout === TWO_COLUMN_NAVIGATION,
@@ -60,7 +60,7 @@ export function useLayout() {
 	);
 
 	/**
-	 * 是否为混合导航
+	 * Whether it is mixed navigation
 	 */
 	const isMixedNav = useMemo(
 		() => currentLayout === MIXED_NAVIGATION,

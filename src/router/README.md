@@ -1,112 +1,119 @@
-# 路由
+# Router
 
-项目路由使用 React Router，虽然使用的是最新 V7 版本，但是推荐阅读 V6 文档 - https://reactrouter.com/en/6.28.1/ ，两个文档都挺烂的。
+This project uses React Router. Although the latest V7 version is used, it's recommended to read the V6 docs - https://reactrouter.com/en/6.28.1/ , both docs are pretty rough.
 
-## 路由目录
+## Router directory
 
 ```bash
 ├── router
-│   ├── constants.ts                      # 路由白名单
-│   ├── extra-info                        # 路由额外信息
+│   ├── constants.ts                      # Route whitelist
+│   ├── extra-info                        # Extra route information
 │   │   ├── index.ts
-│   │   ├── route-path.ts                 # 路由路径，用于路由跳转时使用，统一一处，便于修改路径
-│   │   └── order.ts                      # 路由菜单顺序
-│   ├── guards.tsx                        # 路由守卫
-│   ├── router-global-hooks.ts            # 路由全局钩子
+│   │   ├── route-path.ts                 # Route paths, used for route navigation, centralized in one place for easier maintenance
+│   │   └── order.ts                      # Route menu order
+│   ├── guards.tsx                        # Route guards
+│   ├── router-global-hooks.ts            # Route global hooks
 │   ├── routes
-│   │   ├── core                          # 核心路由
-│   │   ├── modules                       # 动态路由
-│   │   └── static                        # 静态路由
-│   ├── types.ts                          # 路由类型定义
-│   └── utils.ts                          # 路由工具函数
+│   │   ├── core                          # Core routes
+│   │   ├── modules                       # Dynamic routes
+│   │   └── static                        # Static routes
+│   ├── types.ts                          # Route type definitions
+│   └── utils.ts                          # Route utility functions
 ```
 
-## 路由组件
+## Router components
 
-只列举项目中常用的：
+Only listing the ones commonly used in the project:
 
-| 组件名      | 作用         | 说明              |
-|-------------|------------|-----------------|
-| `<Link>`    | 导航组件     | 进行页面跳转使用  |
-| `<Outlet/>` | 渲染容器组件 | 用来呈现嵌套路由。 |
+| Component name | Purpose             | Description                  |
+|-----------------|--------------------|-------------------------------|
+| `<Link>`        | Navigation component | Used for page navigation   |
+| `<Outlet/>`     | Render container component | Used to render nested routes. |
 
 ## Hooks
 
 ### useMatches
 
-返回当前路由匹配的所有路由对象
+Returns all route objects matched by the current route
 
 ```ts
 import { useMatches } from "react-router";
+
 const matches = useMatches();
 console.log(matches);
-// 输出：[{ pathname: '/path', params: {}, data: {} }, ...]
+// Output: [{ pathname: '/path', params: {}, data: {} }, ...]
 ```
 
-基于 `useMatches()` 项目封装了 `useCurrentRoute` hook，可以获取当前最新的路由信息。
+Based on `useMatches()`, the project wraps a `useCurrentRoute` hook, which can be used to get the latest current route information.
 
 ### useParams
 
-返回动态路由的参数
+Returns the params of the dynamic route
 
 ```ts
 import { useParams } from "react-router";
+
 const { id: templateId } = useParams<{ id: string }>();
 ```
 
 ### useNavigate
 
-路由跳转
+Route navigation
 
 ```ts
 import { useNavigate } from "react-router";
+
 const navigate = useNavigate();
 navigate("/path");
 ```
 
 ### useLocation
 
-返回当前的 location 对象
+Returns the current location object
 
 ```ts
 import { useLocation } from "react-router";
+
 const location = useLocation();
 console.log(location);
-// 输出：{ pathname: '/path', search: '?x=1&y=2', hash: '', state: null, key: 'default' }
+// Output: { pathname: '/path', search: '?x=1&y=2', hash: '', state: null, key: 'default' }
 ```
 
 ### useSearchParams
 
-匹配路由 Query 参数（查询参数）
+Matches route Query parameters (query parameters)
 
 ```ts
 import { useSearchParams } from "react-router";
+
 const [searchParams] = useSearchParams();
-console.log(searchParams.get("x")); // 输出 x 的值
+console.log(searchParams.get("x")); // Output the value of x
 ```
 
-> 推荐使用 [nuqs](https://nuqs.47ng.com/) 替代 useSearchParams 进行业务开发，[nuqs](https://nuqs.47ng.com/)  可以像使用 useState 一样简洁管理**查询参数**。
+> It's recommended to use [nuqs](https://nuqs.47ng.com/) instead of useSearchParams for business development. [nuqs](https://nuqs.47ng.com/) lets you manage **query parameters** as concisely as using useState.
 
 ```ts
 import { useQueryState } from "nuqs";
+
 const [hello, setHello] = useQueryState("hello", { defaultValue: "" });
 ```
 
 ### useOutlet
 
-返回根据路由生成的 element
+Returns the element generated based on the route
 
 ```ts
 import { useOutlet } from "react-router";
+
 const outlet = useOutlet();
-console.log(outlet); // 输出：<div>...</div>
+console.log(outlet); // Output: <div>...</div>
 ```
 
-路由的缓存使用这个 API 实现。
+Route caching is implemented using this API.
 
-## 路由守卫和路由钩子
+## Route guards and route hooks
 
-路由守卫和路由钩子在 `src/router/guard` 中定义。
+Route guards and route hooks are defined in `src/router/guard`.
 
-- `auth-guard.tsx` 路由守卫，用于权限校验
-- `common-gurard.ts` 无权限校验逻辑，支持加载动画等拦截功能
+- `auth-guard.tsx` route guard, used for permission verification
+- `common-gurard.ts` no permission verification logic, supports loading animation and other interception features

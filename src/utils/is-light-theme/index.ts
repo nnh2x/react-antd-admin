@@ -1,8 +1,8 @@
 /**
- * 判断当前主题是否为浅色主题
+ * Determine whether the current theme is a light theme
  *
- * @param theme 主题名称，可以是 "light"（浅色）、"dark"（深色）或 "auto"（自动）
- * @returns 如果当前主题为浅色主题，则返回 true；否则返回 false
+ * @param theme Theme name, can be "light", "dark", or "auto"
+ * @returns Returns true if the current theme is light; otherwise returns false
  */
 export function isLightTheme(theme: string) {
 	let light = theme === "light";

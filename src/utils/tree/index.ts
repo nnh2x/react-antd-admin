@@ -1,10 +1,10 @@
 /**
- * @description 构造树型结构数据
- * @param data 数据源
- * @param id id字段 默认id
- * @param parentId 父节点字段，默认parentId
- * @param children 子节点字段，默认children
- * @returns 追加字段后的树
+ * @description Build tree-structured data
+ * @param data Data source
+ * @param id The id field, defaults to "id"
+ * @param parentId The parent node field, defaults to "parentId"
+ * @param children The children field, defaults to "children"
+ * @returns The tree with the fields appended
  */
 export function handleTree(data: any[], id?: string, parentId?: string, children?: string): any {
 	if (!Array.isArray(data)) {
@@ -23,9 +23,7 @@ export function handleTree(data: any[], id?: string, parentId?: string, children
 
 	for (const d of data) {
 		const parentId = d[config.parentId];
-		if (childrenListMap[parentId] == null) {
-			childrenListMap[parentId] = [];
-		}
+		childrenListMap[parentId] ??= [];
 		nodeIds[d[config.id]] = d;
 		childrenListMap[parentId].push(d);
 	}
@@ -55,16 +53,16 @@ export function handleTree(data: any[], id?: string, parentId?: string, children
 }
 
 export interface TreeConfigOptions {
-	// 子属性的名称，默认为'children'
+	// The name of the child property, defaults to 'children'
 	childProps: string
 }
 
 /**
- * @zh_CN 遍历树形结构，并返回所有节点中指定的值。
- * @param tree 树形结构数组
- * @param getValue 获取节点值的函数
- * @param options 作为子节点数组的可选属性名称。
- * @returns 所有节点中指定的值的数组
+ * Traverse a tree structure and return the specified value from all nodes.
+ * @param tree The tree structure array
+ * @param getValue Function to get a node's value
+ * @param options The optional property name used as the children array.
+ * @returns An array of the specified values from all nodes
  */
 export function traverseTreeValues<T, V>(
 	tree: T[],
@@ -97,11 +95,11 @@ export function traverseTreeValues<T, V>(
 }
 
 /**
- * 根据条件过滤给定树结构的节点，并以原有顺序返回所有匹配节点的数组。
- * @param tree 要过滤的树结构的根节点数组。
- * @param filter 用于匹配每个节点的条件。
- * @param options 作为子节点数组的可选属性名称。
- * @returns 包含所有匹配节点的数组。
+ * Filter the nodes of a given tree structure by a condition, returning an array of all matching nodes in their original order.
+ * @param tree The root node array of the tree structure to filter.
+ * @param filter The condition used to match each node.
+ * @param options The optional property name used as the children array.
+ * @returns An array containing all matching nodes.
  */
 export function filterTree<T extends Record<string, any>>(
 	tree: T[],
@@ -128,10 +126,10 @@ export function filterTree<T extends Record<string, any>>(
 }
 
 /**
- * 根据条件重新映射给定树结构的节点
- * @param tree 要过滤的树结构的根节点数组。
- * @param mapper 用于map每个节点的条件。
- * @param options 作为子节点数组的可选属性名称。
+ * Remap the nodes of a given tree structure based on a condition
+ * @param tree The root node array of the tree structure to filter.
+ * @param mapper The function used to map each node.
+ * @param options The optional property name used as the children array.
  */
 export function mapTree<T, V extends Record<string, any>>(
 	tree: T[],

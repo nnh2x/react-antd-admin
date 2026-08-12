@@ -11,17 +11,17 @@ import { globalProgress } from "./global-progress";
 import { goLogin } from "./go-login";
 import { refreshTokenAndRetry } from "./refresh";
 
-// 请求白名单, 请求白名单内的接口不需要携带 token
+// Request whitelist; APIs in the whitelist do not need to carry a token
 const requestWhiteList = [loginPath];
 
-// 请求超时时间
+// Request timeout duration
 const API_TIMEOUT = Number(import.meta.env.VITE_API_TIMEOUT) || 10000;
 
 const defaultConfig: Options = {
 	prefix: import.meta.env.VITE_API_BASE_URL,
 	timeout: API_TIMEOUT,
 	retry: {
-		// 当请求失败时，最多重试次数
+		// Maximum number of retries when a request fails
 		limit: 3,
 	},
 	hooks: {
@@ -31,13 +31,13 @@ const defaultConfig: Options = {
 				if (!ignoreLoading) {
 					globalProgress.start();
 				}
-				// 不需要携带 token 的请求
+				// Requests that do not need to carry a token
 				const isWhiteRequest = requestWhiteList.some(url => request.url.endsWith(url));
 				if (!isWhiteRequest) {
 					const { token } = useAuthStore.getState();
 					request.headers.set(AUTH_HEADER, `Bearer ${token}`);
 				}
-				// 语言等所有的接口都需要携带
+				// The language header must be carried on all requests
 				request.headers.set(LANG_HEADER, usePreferencesStore.getState().language);
 			},
 		],
@@ -50,7 +50,7 @@ const defaultConfig: Options = {
 				// request error
 				if (!response.ok) {
 					if (response.status === 401) {
-						// 防止刷新 refresh-token 继续接收到的 401 错误，出现死循环
+						// Prevent an infinite loop caused by refreshing the refresh-token and continuing to receive 401 errors
 						if ([`/${REFRESH_TOKEN_PATH}`].some(url => request.url.endsWith(url))) {
 							goLogin();
 							return response;
@@ -59,7 +59,7 @@ const defaultConfig: Options = {
 						const { refreshToken } = useAuthStore.getState();
 						// If there is no refresh token, it means that the user has not logged in.
 						if (!refreshToken) {
-							// 如果页面的路由已经重定向到登录页，则不用跳转直接返回结果
+							// If the page has already been redirected to the login page, return the result directly without redirecting
 							if (location.pathname === loginPath) {
 								return response;
 							}

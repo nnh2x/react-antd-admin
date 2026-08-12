@@ -3,20 +3,20 @@ import type { ReactNode } from "react";
 import { useAccess } from "#src/hooks/use-access";
 
 interface AccessControlProps {
-	// 权限类型，默认为 code
+	// Permission type, defaults to code
 	type?: "code" | "role"
-	// 权限值，可以是字符串或字符串数组
+	// Permission value, can be a string or an array of strings
 	codes?: string | string[]
 	children?: ReactNode
-	// 无权限时显示，默认无权限不显示任何内容。
+	// What to display when there's no permission; by default nothing is shown.
 	fallback?: ReactNode
 }
 
 /**
- * 权限验证组件
+ * Permission verification component
  *
- * @param AccessControlProps 权限验证组件的属性
- * @returns 若子组件存在，并且传入的权限值有效，则返回子组件；否则返回 null
+ * @param AccessControlProps Properties of the permission verification component
+ * @returns If the child component exists and the given permission value is valid, returns the child component; otherwise returns null
  */
 export function AccessControl({ type = "code", codes, children, fallback }: AccessControlProps) {
 	const { hasAccessByCodes, hasAccessByRoles } = useAccess();

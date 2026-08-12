@@ -1,12 +1,10 @@
 /**
- * 完整版菜单比较多，将 sort 抽离出来，在此方便维护
+ * Menu order values, extracted here for easy maintenance.
  *
- * 菜单排序，越小越靠前，最好以 10 为基数递增
+ * Lower values are shown first. Increment by 10 for new entries.
  */
 
 export const home = 1;
-export const access = 10;
-export const routeNest = 20;
 
 export const outside = 40;
 

@@ -1,26 +1,24 @@
-import type { MenuItemType } from "#src/layout/layout-menu/types";
 import type { InputRef } from "antd";
-
 import type { ReactElement } from "react";
-import { Scrollbar } from "#src/components/scrollbar";
-import { useDeviceType } from "#src/hooks/use-device-type";
-import { useAccessStore } from "#src/store/access";
 
-import { isString } from "#src/utils/is";
+import type { MenuItemType } from "#src/layout/layout-menu/types";
 import { SearchOutlined } from "@ant-design/icons";
 import { useDebounceFn, useKeyPress, useLocalStorageState } from "ahooks";
 import { Divider, Empty, Input, Modal } from "antd";
-import { match } from "pinyin-pro";
+
 import { isValidElement, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { Scrollbar } from "#src/components/scrollbar";
+import { useDeviceType } from "#src/hooks/use-device-type";
+import { useAccessStore } from "#src/store/access";
+import { isString } from "#src/utils/is";
 
 import { SearchFooter } from "./components/search-footer";
 import { SearchPanel } from "./components/search-panel";
 
 /**
- * @zh 偏平化可跳转的菜单项
- * @en Flat menu item that can be jumped
+ * Flat menu item that can be jumped
  */
 function transformMenuToFlatMenu(menus: MenuItemType[], flatMap: MenuItemType[] = []) {
 	if (menus && menus.length === 0)
@@ -67,8 +65,7 @@ export function GlobalSearch() {
 	}
 
 	/**
-	 * @zh 将指定索引的元素滚动到视图中
-	 * @en Scroll the specified index element into view
+	 * Scroll the specified index element into view
 	 */
 	function scrollSelectedIntoView(index: number) {
 		if (listRef.current) {
@@ -81,8 +78,7 @@ export function GlobalSearch() {
 	}
 
 	/**
-	 * @zh 从搜索历史中移除指定的记录
-	 * @en Remove the specified record from search history
+	 * Remove the specified record from search history
 	 */
 	function removeHistoryItem(key: string) {
 		setSearchHistory(prev => prev!.filter(item => item !== key));
@@ -101,7 +97,7 @@ export function GlobalSearch() {
 		if (index === -1)
 			return;
 
-		const activeIndex = (index + direction + length) % length; // 确保 index 在范围内循环
+		const activeIndex = (index + direction + length) % length; // Ensure index cycles within range
 		const activeNameKey = resultOptions[activeIndex].key;
 
 		setActiveKey(activeNameKey);
@@ -126,7 +122,7 @@ export function GlobalSearch() {
 			const translatedLowerCaseLabel = t(labelText)?.toLocaleLowerCase();
 			const containsInputValue = translatedLowerCaseLabel?.includes(inputValue);
 
-			return containsInputValue || match(translatedLowerCaseLabel, inputValue);
+			return containsInputValue;
 		});
 		const activeName = matchRoutes[0]?.key ?? "";
 		setActiveKey(activeName);
@@ -140,17 +136,16 @@ export function GlobalSearch() {
 
 	/** key up */
 	function handleUp() {
-		handleKeyPress(-1); // 方向 -1 表示向上
+		handleKeyPress(-1); // Direction -1 means up
 	}
 
 	/** key down */
 	function handleDown() {
-		handleKeyPress(1); // 方向 1 表示向下
+		handleKeyPress(1); // Direction 1 means down
 	}
 
 	/**
-	 * @zh 快捷键打开搜索面板
-	 * @en Shortcut key to open the search panel
+	 * Shortcut key to open the search panel
 	 */
 	useKeyPress(["meta.K"], () => {
 		if (!open) {

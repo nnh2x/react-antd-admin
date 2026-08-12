@@ -9,7 +9,7 @@ interface BasicButtonProps extends ButtonProps {
 export function BasicButton(props: BasicButtonProps) {
 	const { children, ...restProps } = props;
 
-	// 清除自定义属性
+	// Strip custom properties
 	const antdButtonProps: Partial<BasicButtonProps> = { ...restProps };
 
 	return (

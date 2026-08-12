@@ -1,7 +1,7 @@
 @layer theme, base, antd, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 /*
-禁用 Tailwind Preflight，避免与 Ant Design 样式冲突
+Disable Tailwind Preflight to avoid conflicts with Ant Design styles
 @see https://tailwindcss.com/docs/preflight#disabling-preflight
 */
 /* @import "tailwindcss/preflight.css" layer(base); */
@@ -72,7 +72,7 @@
 
 /* @see https://tailwindcss.com/docs/adding-custom-styles#adding-custom-variants */
 /*
-添加 lang 伪类选择器
+Adds a `:lang()` pseudo-class variant per supported language.
 
 @example
 ```
@@ -86,24 +86,24 @@ not-en-US:text-black
   }
 }
 
-@custom-variant zh-CN {
-  &:where(:lang(zh-CN)) {
+@custom-variant vi-VN {
+  &:where(:lang(vi-VN)) {
     @slot;
   }
 }
 
-/* 为每种语言创建不匹配变体 */
+/* Negated variant for each language */
 @custom-variant not-en-US {
   &:where(:not(:lang(en-US))) {
     @slot;
   }
 }
 
-@custom-variant not-zh-CN {
-  &:where(:not(:lang(zh-CN))) {
+@custom-variant not-vi-VN {
+  &:where(:not(:lang(vi-VN))) {
     @slot;
   }
 }
 
-/* 为 Tailwind 添加自定义插件 */
+/* Register the custom Tailwind plugin */
 @plugin "../plugins/tailwind.ts"

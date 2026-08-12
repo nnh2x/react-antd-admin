@@ -4,6 +4,8 @@
 node_modules
 /.pnp
 .pnp.js
+.pnp.*
+/.yarn/
 
 # testing
 /coverage
@@ -28,8 +30,7 @@ yarn-error.log*
 
 # package lock
 package-lock.json
-yarn.lock
-# pnpm-lock.yaml
+pnpm-lock.yaml
 
 # vitepress
 **/.vitepress/dist

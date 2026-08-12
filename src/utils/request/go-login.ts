@@ -2,13 +2,13 @@ import { useAuthStore } from "#src/store/auth";
 import { rememberRoute } from "#src/utils/remember-route";
 
 /**
- * 跳转到登录页面
+ * Navigate to the login page
  *
- * @returns 无返回值
+ * @returns No return value
  */
 export function goLogin() {
-	// 重置登录状态
+	// Reset the login state
 	useAuthStore.getState().reset();
-	// 跳转到登录页面，并带上需要记住的路由信息
+	// Navigate to the login page, carrying the route information to remember
 	window.location.href = `${import.meta.env.BASE_URL}login${rememberRoute()}`;
 }

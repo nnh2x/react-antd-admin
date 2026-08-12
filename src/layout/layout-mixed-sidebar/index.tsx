@@ -1,10 +1,10 @@
 import type { MenuProps } from "antd";
 import type { MenuItemType } from "../layout-menu/types";
 
-import { Scrollbar } from "#src/components/scrollbar";
-import { usePreferences } from "#src/hooks/use-preferences";
-
 import { theme as antdTheme, ConfigProvider, Typography } from "antd";
+import { Scrollbar } from "#src/components/scrollbar";
+
+import { usePreferences } from "#src/hooks/use-preferences";
 
 import { sidebarTitleHeight, siderTriggerHeight } from "../constants";
 import LayoutMenu from "../layout-menu";
@@ -22,7 +22,7 @@ interface LayoutMixedSidebarProps {
 const emptyArray: MenuItemType[] = [];
 const zero = 0;
 /**
- * 双列布局侧边栏
+ * Two-column layout sidebar
  */
 export default function LayoutMixedSidebar({
 	computedSidebarWidth = zero,

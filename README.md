@@ -11,31 +11,23 @@
 ![GitHub stars](https://img.shields.io/github/stars/condorheroblog/react-antd-admin?color=fa6470&style=flat)
 ![GitHub forks](https://img.shields.io/github/forks/condorheroblog/react-antd-admin?style=flat)
 
-**English** | [中文](./README.zh-CN.md)
-
 ## Introduction
 
 react-antd-admin is a middle and back-office solution based on React Hooks, Vite, and TypeScript. It aims to help you quickly build enterprise-level middle and back-office projects, with no additional configuration required, ready to use out of the box.
+
+This fork is trimmed down to a lean starter kit: demo-only pages have been removed, and the app ships bilingual out of the box with **Vietnamese (vi-VN, default)** and **English (en-US)**.
 
 ## Features
 
 - Cutting-edge technology stack: [React Hooks](https://react.dev/)、[TypeScript](https://www.typescriptlang.org/)、[Vite](https://vitejs.dev/)、[ant design](https://ant.design/)、[React Router](https://reactrouter.com/)、[Tailwind CSS](https://tailwindcss.com/docs/installation)
 - Intuitive state management library: [Zustand](https://zustand-demo.pmnd.rs/)
-- Internationalization: [I18n](https://react.i18next.com/)
+- Internationalization: [I18n](https://react.i18next.com/) — Vietnamese and English out of the box
 - Fetch requests: [Ky](https://github.com/sindresorhus/ky)、[@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview)
 - Code formatting: [ESLint Flat Config](https://eslint.org/docs/latest/use/configure/configuration-files-new/)
 - Route-level component caching: [keepalive-for-react](https://github.com/irychen/keepalive-for-react)
 - API Mocking: [vite-plugin-fake-server](https://github.com/condorheroblog/vite-plugin-fake-server)
 - Permission Routing: Supports both frontend static routing and backend dynamic routing
 - Theme Configuration: Built-in multiple theme configurations, supports dark theme, and unified color system for Ant Design and Tailwind CSS
-
-## Preview
-
-[react-antd-admin](https://condorheroblog.github.io/react-antd-admin/)
-
-## Documentation
-
-[react-antd-admin Documentation](https://condorheroblog.github.io/react-antd-admin/docs/)
 
 ## Usage
 
@@ -52,7 +44,7 @@ npx degit condorheroblog/react-antd-admin react-antd-admin
 # or npx giget@latest gh:condorheroblog/react-antd-admin react-antd-admin
 cd react-antd-admin
 corepack enable
-pnpm i # If you haven't installed pnpm before, run: npm install -g pnpm
+yarn install
 ```
 
 ## Development
@@ -62,13 +54,13 @@ pnpm i # If you haven't installed pnpm before, run: npm install -g pnpm
 ```bash
 corepack enable
 
-pnpm install
+yarn install
 ```
 
 ### Run
 
 ```bash
-pnpm run dev
+yarn dev
 ```
 
 Open your browser and enter [http://localhost:3333](http://localhost:3333) to see the page.
@@ -76,7 +68,7 @@ Open your browser and enter [http://localhost:3333](http://localhost:3333) to se
 ## Build
 
 ```bash
-pnpm build
+yarn build
 ```
 
 The build output is by default in the build folder.
@@ -84,7 +76,7 @@ The build output is by default in the build folder.
 ## Preview
 
 ```bash
-pnpm preview
+yarn preview
 ```
 
 ## Credits

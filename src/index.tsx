@@ -1,17 +1,16 @@
-import { TanstackQuery } from "#src/components/tanstack-query";
-import { setupI18n } from "#src/locales";
-import { setupLoading } from "#src/plugins/loading";
-
 // import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { TanstackQuery } from "#src/components/tanstack-query";
+import { setupI18n } from "#src/locales";
+
+import { setupLoading } from "#src/plugins/loading";
 
 import App from "./app";
 import "./styles/index.css";
 
 async function setupApp() {
 	/**
-	 * @zh 初始化国际化，必须放在第一位，loading 中引用了国际化
-	 * @en Initialize internationalization, must be placed first. Loading refer to internationalization
+	 * Initialize internationalization, must be placed first. Loading refer to internationalization
 	 */
 	setupI18n();
 

@@ -2,38 +2,38 @@ import { isObject } from "#src/utils/is";
 import { message } from "#src/utils/static-antd";
 
 /**
- * 处理错误响应
+ * Handle an error response
  *
- * @param response 响应对象
- * @returns 响应对象
+ * @param response The response object
+ * @returns The response object
  */
 export async function handleErrorResponse(response: Response) {
 	try {
-		// 将响应内容解析为 JSON 格式
+		// Parse the response body as JSON
 		const data = await response.json();
 
-		// 判断解析后的数据是否为对象类型
+		// Check whether the parsed data is an object
 		if (isObject(data)) {
-			// 将解析后的数据转换为包含错误信息的对象类型
+			// Cast the parsed data to an object type containing error information
 			const json = data as { errorMsg?: string, message?: string };
 
-			// 如果解析后的数据中包含 errorMsg 或 message 属性，则显示错误信息
-			// 否则显示响应的状态文本作为错误信息
+			// If the parsed data contains an errorMsg or message property, show it as the error message
+			// otherwise show the response's status text as the error message
 			message.error(json.errorMsg || json.message || response.statusText);
 		}
 		else {
-			// 如果解析后的数据不是对象类型，则直接显示响应的状态文本作为错误信息
+			// If the parsed data is not an object, show the response's status text as the error message directly
 			message.error(response.statusText);
 		}
 	}
 	catch (e) {
-		// 如果解析 JSON 格式出错，则打印错误信息到控制台
+		// If parsing the JSON fails, log the error to the console
 		console.error("Error parsing JSON:", e);
 
-		// 显示响应的状态文本作为错误信息
+		// Show the response's status text as the error message
 		message.error(response.statusText);
 	}
 
-	// 返回响应对象
+	// Return the response object
 	return response;
 }

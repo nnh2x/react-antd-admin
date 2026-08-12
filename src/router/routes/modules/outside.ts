@@ -1,14 +1,14 @@
 import type { AppRouteRecordRaw } from "#src/router/types";
 
+import { AntDesignOutlined } from "@ant-design/icons";
+import { createElement } from "react";
+import { Outlet } from "react-router";
 import { Iframe } from "#src/components/iframe";
 import { RiReactjsLine } from "#src/icons";
+
 import ContainerLayout from "#src/layout/container-layout";
 import { $t } from "#src/locales";
 import { outside } from "#src/router/extra-info";
-
-import { AntDesignOutlined, ContainerOutlined } from "@ant-design/icons";
-import { createElement } from "react";
-import { Outlet } from "react-router";
 
 const routes: AppRouteRecordRaw[] = [
 	{
@@ -35,15 +35,6 @@ const routes: AppRouteRecordRaw[] = [
 							icon: createElement(AntDesignOutlined),
 							title: $t("common.menu.antd"),
 							iframeLink: "https://ant.design/",
-						},
-					},
-					{
-						path: "/outside/embedded/project-docs",
-						Component: Iframe,
-						handle: {
-							icon: createElement(ContainerOutlined),
-							title: $t("common.menu.projectDocs"),
-							iframeLink: "https://condorheroblog.github.io/react-antd-admin/docs/",
 						},
 					},
 				],

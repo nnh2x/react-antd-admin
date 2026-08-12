@@ -1,6 +1,8 @@
-import type { VisibleDomRect } from "#src/utils/dom";
 import type { CSSProperties } from "react";
+import type { VisibleDomRect } from "#src/utils/dom";
 
+import { useDebounceFn } from "ahooks";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCssVar } from "#src/hooks/use-css-var";
 import {
 	CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT,
@@ -8,14 +10,11 @@ import {
 	CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
 	CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
 } from "#src/layout/constants";
-import { getElementVisibleRect } from "#src/utils/dom";
-import { useDebounceFn } from "ahooks";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { getElementVisibleRect } from "#src/utils/dom";
 
 /**
- * @zh 获取布局内容区域的样式
- * @en Get the style of the layout content area
+ * Get the style of the layout content area
  */
 export function useLayoutContentStyle() {
 	const contentElement = useRef<HTMLDivElement>(null);

@@ -1,6 +1,3 @@
-import { BasicButton } from "#src/components/basic-button";
-import { PASSWORD_RULES, USERNAME_RULES } from "#src/constants/rules";
-
 import {
 	Button,
 	Checkbox,
@@ -10,9 +7,12 @@ import {
 	Typography,
 } from "antd";
 import { use, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
 
+import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { BasicButton } from "#src/components/basic-button";
+
+import { PASSWORD_RULES, USERNAME_RULES } from "#src/constants/rules";
 import { FormModeContext } from "../form-mode-context";
 
 const { Title } = Typography;
@@ -31,7 +31,7 @@ export function RegisterPassword() {
 	const { setFormMode } = use(FormModeContext);
 
 	const handleFinish = async () => {
-		window.$message?.success("注册成功");
+		window.$message?.success("Registration successful");
 	};
 
 	return (

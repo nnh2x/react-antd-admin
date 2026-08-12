@@ -1,5 +1,4 @@
 import type { MenuProps } from "antd";
-import { useTabsStore } from "#src/store/tabs";
 import {
 	CloseOutlined,
 	RedoOutlined,
@@ -10,20 +9,21 @@ import {
 } from "@ant-design/icons";
 import { useKeepAliveContext } from "keepalive-for-react";
 import { useCallback, useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
+
+import { useTabsStore } from "#src/store/tabs";
 
 const homePath = import.meta.env.VITE_BASE_HOME_PATH;
 /**
- * 标签页操作的键值对象
+ * Key-value object for tab actions
  * @readonly
  * @enum {string}
- * @property {string} REFRESH - 重新加载当前标签页
- * @property {string} CLOSE - 关闭当前标签页
- * @property {string} CLOSE_RIGHT - 关闭右侧标签页
- * @property {string} CLOSE_LEFT - 关闭左侧标签页
- * @property {string} CLOSE_OTHERS - 关闭其他标签页
- * @property {string} CLOSE_ALL - 关闭所有标签页
+ * @property {string} REFRESH - reload the current tab
+ * @property {string} CLOSE - close the current tab
+ * @property {string} CLOSE_RIGHT - close tabs to the right
+ * @property {string} CLOSE_LEFT - close tabs to the left
+ * @property {string} CLOSE_OTHERS - close other tabs
+ * @property {string} CLOSE_ALL - close all tabs
  */
 export const TabActionKeys = {
 	REFRESH: "refresh",
@@ -37,8 +37,8 @@ export const TabActionKeys = {
 export type TabActionKey = typeof TabActionKeys[keyof typeof TabActionKeys];
 
 /**
- * 自定义钩子，用于处理标签页的下拉菜单
- * @returns {[Function, Function]} 返回一个元组，包含菜单项生成函数和菜单点击处理函数
+ * Custom hook for handling the tab's dropdown menu
+ * @returns {[Function, Function]} a tuple containing the menu item generator function and the menu click handler function
  */
 export function useDropdownMenu() {
 	const { t } = useTranslation();
@@ -54,9 +54,9 @@ export function useDropdownMenu() {
 	} = useTabsStore();
 	const { refresh } = useKeepAliveContext();
 	/**
-	 * 生成菜单项
-	 * @param {string} tabKey - 当前标签页的键
-	 * @returns {MenuProps["items"]} 菜单项配置
+	 * Generate menu items
+	 * @param {string} tabKey - the key of the current tab
+	 * @returns {MenuProps["items"]} menu item configuration
 	 */
 	const items = useCallback((tabKey: string): MenuProps["items"] => {
 		const isOnlyTab = openTabs.size === 2 && openTabs.has(homePath);
@@ -104,13 +104,13 @@ export function useDropdownMenu() {
 	}, [t, activeKey, homePath, openTabs]);
 
 	/**
-	 * 定义菜单操作与对应的处理函数
+	 * Define menu actions and their corresponding handler functions
 	 */
 	const actions = useMemo(() => ({
 		[TabActionKeys.REFRESH]: (currentPath: string) => {
-			// 刷新 KeepAlive 缓存的页面
+			// Refresh the KeepAlive cached page
 			refresh(currentPath);
-			// 重新渲染页面
+			// Re-render the page
 			setIsRefresh(true);
 		},
 		[TabActionKeys.CLOSE]: removeTab,
@@ -121,9 +121,9 @@ export function useDropdownMenu() {
 	}), [removeTab, closeRightTabs, closeLeftTabs, closeOtherTabs, closeAllTabs]);
 
 	/**
-	 * 处理菜单点击事件
-	 * @param {string} menuKey - 被点击的菜单项键
-	 * @param {string} nodeKey - 当前标签页的键
+	 * Handle the menu click event
+	 * @param {string} menuKey - the key of the clicked menu item
+	 * @param {string} nodeKey - the key of the current tab
 	 */
 	const onClickMenu = useCallback((menuKey: string, nodeKey: string) => {
 		const action = actions[menuKey as keyof typeof actions];

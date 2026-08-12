@@ -1,20 +1,20 @@
 /**
- * 正则大全
+ * Regex collection
  * @see https://any-rule.vercel.app/
  *
- * 你需要的大部分规则可以通过上面的网站生成，然后复制粘贴到你的代码中。
+ * Most of the rules you need can be generated on the site above, then copied and pasted into your code.
  */
 
 /* ================ Divider ================== */
 
-// 用户名校验，4 到 16 位（字母，数字，下划线，减号）
+// Username validation, 4 to 16 characters (letters, numbers, underscore, hyphen)
 export const USERNAME_REGEXP = /^[\w-]{4,16}$/;
 
-// 仅包含大写字母、小写字母和数字
+// Only contains uppercase letters, lowercase letters, and numbers
 export const ALPHA_NUMERIC_ONLY_REGEXP = /^[A-Z0-9]+$/i;
 
 /**
- * @description 统一社会信用代码
+ * @description Unified Social Credit Code
  * @see https://creditbj.jxj.beijing.gov.cn/credit-portal/credit_service/legal/search
  *
  * @example 91110105MA0071F38D, 91110105MADDCJMC8C, 91110101MABUT67T06
@@ -22,7 +22,7 @@ export const ALPHA_NUMERIC_ONLY_REGEXP = /^[A-Z0-9]+$/i;
 export const UNIFIED_SOCIAL_CREDIT_CODE_REGEXP = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
 
 /**
- * @description 手机号，只要是 1 开头即可
+ * @description Mobile phone number, just needs to start with 1
  *
  * @example 008618311006933, +8617888829981, 19119255642
  */

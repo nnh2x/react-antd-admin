@@ -14,7 +14,7 @@ export const useStyles = createUseStyles(({ token }) => {
 			"& .ant-tabs-nav": {
 				"margin": 0,
 				"& .ant-tabs-tab": {
-					// antd 自带的动画和 DND 动画冲突
+					// antd's built-in animation conflicts with the DND animation
 					transition: "inherit",
 					marginLeft: "0px !important",
 					border: "none !important",

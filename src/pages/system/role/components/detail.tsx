@@ -1,8 +1,5 @@
 import type { RoleItemType } from "#src/api/system/role";
 import type { TreeDataNodeWithId } from "#src/components/basic-form";
-import { fetchAddRoleItem, fetchUpdateRoleItem } from "#src/api/system/role";
-import { FormTreeItem } from "#src/components/basic-form";
-
 import {
 	DrawerForm,
 	ProFormRadio,
@@ -10,9 +7,12 @@ import {
 	ProFormTextArea,
 } from "@ant-design/pro-components";
 import { useMutation } from "@tanstack/react-query";
+
 import { Form } from "antd";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { fetchAddRoleItem, fetchUpdateRoleItem } from "#src/api/system/role";
+import { FormTreeItem } from "#src/components/basic-form";
 
 interface DetailProps {
 	treeData: TreeDataNodeWithId[]
@@ -36,7 +36,7 @@ export function Detail({ title, open, onCloseChange, detailData, treeData, refre
 
 	const onFinish = async (values: RoleItemType) => {
 		// console.info(values);
-		/* 有 id 则为修改，否则为新增 */
+		/* Update if there is an id, otherwise create a new one */
 		if (detailData.id) {
 			await updateRoleItemMutation.mutateAsync(values);
 			window.$message?.success(t("common.updateSuccess"));
@@ -45,9 +45,9 @@ export function Detail({ title, open, onCloseChange, detailData, treeData, refre
 			await addRoleItemMutation.mutateAsync(values);
 			window.$message?.success(t("common.addSuccess"));
 		}
-		/* 刷新表格 */
+		/* Refresh the table */
 		refreshTable?.();
-		// 不返回不会关闭弹框
+		// The modal will not close unless this returns true
 		return true;
 	};
 

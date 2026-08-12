@@ -1,14 +1,14 @@
-/* 自定义重置样式 */
+/* Custom reset styles */
 @import './base.css';
 
-/* 第三方库样式 */
+/* Third-party library styles */
 @import './global.css';
 
-/* 引入 tailwindcss 样式 */
+/* Tailwind CSS */
 @import './tailwind.css';
 
-/* 动画 */
+/* Animations */
 @import './animation.css';
 
-/* keepalive 组件样式 */
+/* keepalive component styles */
 @import './keep-alive.css';

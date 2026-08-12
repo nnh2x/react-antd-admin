@@ -1,23 +1,23 @@
 import type { MenuItemType } from "#src/layout/layout-menu/types";
 import type { AppRouteRecordRaw } from "#src/router/types";
 
+import { create } from "zustand";
 import { rootRoute, router } from "#src/router";
 import { ROOT_ROUTE_ID } from "#src/router/constants";
 import { baseRoutes } from "#src/router/routes";
 import { ascending } from "#src/router/utils/ascending";
 import { flattenRoutes } from "#src/router/utils/flatten-routes";
+
 import { generateMenuItemsFromRoutes } from "#src/router/utils/generate-menu-items-from-routes";
 
-import { create } from "zustand";
-
 interface AccessState {
-	// 路由菜单
+	// Route menus
 	wholeMenus: MenuItemType[]
-	// 有权限的 React Router 路由
+	// Authorized React Router routes
 	routeList: AppRouteRecordRaw[]
-	// 扁平化后的路由，路由 id 作为索引 key
+	// Flattened routes, with route id as the index key
 	flatRouteList: Record<string, AppRouteRecordRaw>
-	// 是否获取到权限
+	// Whether access permissions have been fetched
 	isAccessChecked: boolean
 }
 
@@ -38,7 +38,7 @@ export const useAccessStore = create<AccessState & AccessAction>(set => ({
 
 	setAccessStore: (routes) => {
 		const newRoutes = ascending([...baseRoutes, ...routes]);
-		/* 添加新的路由到根路由 */
+		/* Add the new routes to the root route */
 		router.patchRoutes(ROOT_ROUTE_ID, routes);
 		const flatRouteList = flattenRoutes(newRoutes);
 		const wholeMenus = generateMenuItemsFromRoutes(newRoutes);
@@ -53,7 +53,7 @@ export const useAccessStore = create<AccessState & AccessAction>(set => ({
 	},
 
 	reset: () => {
-		/* 移除动态路由 */
+		/* Remove dynamic routes */
 		router._internalSetRoutes(rootRoute);
 		set(initialState);
 	},

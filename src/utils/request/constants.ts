@@ -1,11 +1,11 @@
-// 定义 HTTP 请求头中用于传递授权信息的字段名
+// Defines the header field name used to pass authorization information in HTTP requests
 export const AUTH_HEADER = "Authorization";
 
-// 定义 HTTP 请求头中用于指定语言偏好的字段名
+// Defines the header field name used to specify the language preference in HTTP requests
 export const LANG_HEADER = "X-Lang";
 
-// 定义 HTTP 请求头中用于指定应用名称的字段名
+// Defines the header field name used to specify the application name in HTTP requests
 export const APP_NAME_HEADER = "X-App-Name";
 
-// 定义 HTTP 请求路径中用于刷新访问令牌的路径
+// Defines the path used to refresh the access token in HTTP request paths
 export const REFRESH_TOKEN_PATH = "refresh-token";

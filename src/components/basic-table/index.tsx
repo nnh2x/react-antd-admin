@@ -2,27 +2,27 @@ import type { ParamsType, ProTableProps } from "@ant-design/pro-components";
 
 import type { TablePaginationConfig } from "antd";
 
-import { footerHeight as layoutFooterHeight } from "#src/layout/constants";
-import { usePreferencesStore } from "#src/store/preferences";
-import { cn } from "#src/utils/cn";
-import { isObject, isUndefined } from "#src/utils/is";
-
 import { LoadingOutlined } from "@ant-design/icons";
 import { ProTable } from "@ant-design/pro-components";
 import { useSize } from "ahooks";
 import { useEffect, useMemo, useRef, useState } from "react";
+
 import { useTranslation } from "react-i18next";
+import { footerHeight as layoutFooterHeight } from "#src/layout/constants";
+import { usePreferencesStore } from "#src/store/preferences";
+import { cn } from "#src/utils/cn";
+import { isObject, isUndefined } from "#src/utils/is";
 
 import { BASIC_TABLE_ROOT_CLASS_NAME } from "./constants";
 import { useStyles } from "./styles";
 
 export interface BasicTableProps<D, U, V> extends ProTableProps<D, U, V> {
 	/**
-	 * @description 自适应内容区高度，如果设置了 scroll.y，则不进行自适应
+	 * @description Adapt to the content area height. If scroll.y is set, this adaptation is skipped
 	 * @default false
 	 */
 	adaptive?: boolean | {
-		/** 表格距离页面底部的偏移量，默认值为 `16` */
+		/** Offset between the table and the bottom of the page, default value is `16` */
 		offsetBottom?: number
 	}
 }
@@ -44,14 +44,14 @@ export function BasicTable<
 		fixedFooter,
 	} = usePreferencesStore();
 	/**
-	 * @description 动态表格中为什么设置 scrollY 为 initial
+	 * @description Why scrollY is set to initial in a dynamic table
 	 * @see https://gist.github.com/condorheroblog/557c18c61084a1296b716bcb1203315e
 	 */
 	const [scrollY, setScrollY] = useState<number | string | undefined>(adaptive ? "initial" : undefined);
 
 	/**
-	 * @description 固定页脚的高度
-	 * 如果启用了页脚并且页脚是固定的，则返回页脚的高度，否则返回 0
+	 * @description Fixed footer height
+	 * If the footer is enabled and fixed, return the footer height, otherwise return 0
 	 */
 	const footerHeight = useMemo(() => {
 		if (enableFooter && fixedFooter) {
@@ -76,11 +76,11 @@ export function BasicTable<
 	};
 
 	/**
-	 * @description 计算分页器的高度
-	 * 如果分页器被禁用，则返回 0，否则根据分页器的大小返回相应的高度
+	 * @description Calculate the pagination height
+	 * If pagination is disabled, return 0, otherwise return the corresponding height based on the pagination size
 	 *
 	 *
-	 * 无法通过获取 DOM 的方式来计算分页器的高度，因为 pagination 是子组件，父组件无法加载子组件还未加载
+	 * The pagination height cannot be calculated by reading the DOM, because pagination is a child component and the parent cannot access it before it has loaded
 	 */
 	const paginationHeight = useMemo(() => {
 		const paginationProps = getPaginationProps();
@@ -90,24 +90,24 @@ export function BasicTable<
 		}
 		else {
 			if (!paginationProps.size) {
-				// 默认分页器高度为 32px
+				// Default pagination height is 32px
 				return 32 + 16 + 16;
 			}
 			else {
-				// 小分页器高度为 24px
+				// Small pagination height is 24px
 				return 24 + 16 + 16;
 			}
 		}
 	}, [getPaginationProps]);
 
 	/**
-	 * @description 表格高度自适应
-	 * 这是一个 hook 方法，等待 antd 修复
+	 * @description Table height adaptation
+	 * This is a workaround hook, waiting for antd to fix it
 	 * @see https://github.com/ant-design/ant-design/issues/23974
 	 */
 	useEffect(() => {
 		if (!isUndefined(props.scroll?.y)) {
-			// 如果 scroll.y 已经被设置，则不进行高度自适应
+			// If scroll.y has already been set, skip height adaptation
 			return;
 		}
 
@@ -119,7 +119,7 @@ export function BasicTable<
 
 			const tableWrapperRect = tableWrapperRef.current.getBoundingClientRect();
 
-			// 如果表格在屏幕外，不进行高度自适应
+			// If the table is off-screen, skip height adaptation
 			if (tableWrapperRect.top > window.innerHeight) {
 				return;
 			}
@@ -129,18 +129,17 @@ export function BasicTable<
 			if (!tableBody)
 				return;
 
-			// 获取元素的边界框
+			// Get the bounding rect of the element
 			const tableBodyRect = tableBody.getBoundingClientRect();
 
-			// 16 是 BasicContent 的 padding 值
+			// 16 is the padding value of BasicContent
 			const offsetBottom = isObject(adaptive) ? (adaptive.offsetBottom ?? 16) : 16;
 
 			const realOffsetBottom = offsetBottom + paginationHeight + footerHeight;
 
 			const bodyHeight = window.innerHeight - tableBodyRect.top - realOffsetBottom;
 			/**
-			 * @zh scroll.y 设置的是 max-height，所以需要手动设置高度
-			 * @en scroll.y sets the max-height, so we need to set the height manually
+			 * scroll.y sets the max-height, so we need to set the height manually
 			 */
 			tableBody.setAttribute("style", `overflow-y: auto;min-height: ${bodyHeight}px;max-height: ${bodyHeight}px;`);
 			setScrollY(bodyHeight);

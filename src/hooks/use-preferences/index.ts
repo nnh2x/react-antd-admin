@@ -1,20 +1,19 @@
+import { useMemo } from "react";
 import { DEFAULT_PREFERENCES, usePreferencesStore } from "#src/store/preferences";
 import { isDarkTheme } from "#src/utils/is-dark-theme";
+
 import { isLightTheme } from "#src/utils/is-light-theme";
 
-
-import { useMemo } from "react";
-
 /**
- * 包装下用户偏好设置的参数，不需要存储在 localStorage 中，但是为了方便使用的变量可以在这里出现。
+ * Wraps user preference parameters that don't need to be stored in localStorage, but can appear here for convenience.
  *
- * @returns 返回包含用户偏好设置的对象，包括主题、是否为默认设置、是否为深色主题、是否为浅色主题
+ * @returns An object containing user preferences, including theme, whether it's the default setting, whether it's a dark theme, and whether it's a light theme
  */
 export function usePreferences() {
 	const preferences = usePreferencesStore();
 	const { theme } = preferences;
 
-	// 是否为默认的用户偏好设置
+	// Whether this is the default user preference setting
 	const isDefault = useMemo(() => {
 		return Object.entries(DEFAULT_PREFERENCES).every(([key, value]) => {
 			return preferences[key as keyof typeof preferences] === value;

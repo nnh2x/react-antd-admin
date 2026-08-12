@@ -1,10 +1,10 @@
 import type { ButtonProps } from "antd";
 
+import { useEffect } from "react";
+import { flushSync } from "react-dom";
 import { BasicButton } from "#src/components/basic-button";
 import { usePreferences } from "#src/hooks/use-preferences";
 import { RiMoonIcon, RiSunIcon } from "#src/icons";
-import { useEffect } from "react";
-import { flushSync } from "react-dom";
 
 const isBrowser = typeof window !== "undefined";
 function injectViewTransitionStyles() {
@@ -38,10 +38,7 @@ function injectViewTransitionStyles() {
 }
 
 /**
- * @zh 主题切换组件
- * 允许用户通过按钮切换网站的亮色和暗色主题
- *
- * @en Theme Button Component
+ * Theme Button Component
  * Allows users to toggle between light and dark themes of the website via a button
  */
 export function ThemeButton({ ...restProps }: ButtonProps) {
@@ -64,7 +61,7 @@ export function ThemeButton({ ...restProps }: ButtonProps) {
 			Math.max(y, innerHeight - y),
 		);
 		const transition = document.startViewTransition(() => {
-			// eslint-disable-next-line react-dom/no-flush-sync
+			// eslint-disable-next-line react/dom-no-flush-sync
 			flushSync(() => {
 				changeSiteTheme(isDark ? "light" : "dark");
 			});

@@ -1,7 +1,6 @@
-import type { TabItemProps } from "#src/store/tabs";
 import type { DragEndEvent } from "@dnd-kit/core";
 import type { MenuProps, TabsProps } from "antd";
-import { useTabsStore } from "#src/store/tabs";
+import type { TabItemProps } from "#src/store/tabs";
 import { closestCenter, DndContext, PointerSensor, useSensor } from "@dnd-kit/core";
 import {
 	horizontalListSortingStrategy,
@@ -9,9 +8,10 @@ import {
 	useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
 import { Dropdown } from "antd";
+
 import { cloneElement } from "react";
+import { useTabsStore } from "#src/store/tabs";
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLElement> {
 	"data-node-key": string
@@ -52,7 +52,7 @@ interface DraggableTabBarProps {
 }
 
 export function DraggableTabBar({ tabBarProps, DefaultTabBar, tabItems, items, onClickMenu }: DraggableTabBarProps) {
-	// activationConstraint 设置拖拽传感器，激活条件为指针移动至少 5 像素
+	// activationConstraint sets up the drag sensor; the activation condition is a pointer movement of at least 5 pixels
 	const sensor = useSensor(PointerSensor, { activationConstraint: { distance: 5 } });
 	const changeTabOrder = useTabsStore(state => state.changeTabOrder);
 

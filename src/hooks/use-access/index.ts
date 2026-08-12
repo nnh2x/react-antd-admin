@@ -1,14 +1,13 @@
-import { useUserStore } from "#src/store/user";
-import { isString } from "#src/utils/is";
-
 import { useMatches } from "react-router";
+import { useUserStore } from "#src/store/user";
+
+import { isString } from "#src/utils/is";
 import { accessControlCodes, AccessControlRoles } from "./constants";
 
 export * from "./constants";
 
 /**
- * @zh 权限判断
- * @en Access judgment
+ * Access judgment
  */
 export function useAccess() {
 	const matches = useMatches();
@@ -16,15 +15,14 @@ export function useAccess() {
 	const currentRoute = matches[matches.length - 1];
 
 	/**
-	 * @zh 根据权限代码判断当前路由是否具有指定权限
-	 * @en Determine whether the current route has a specified permission based on permission codes
-	 * @param permission 全部小写的权限名称或权限名称数组，比如 `["add", "delete"]`。
-	 * @returns boolean 是否具有指定权限
+	 * Determine whether the current route has a specified permission based on permission codes
+	 * @param permission An all-lowercase permission name or array of permission names, e.g. `["add", "delete"]`.
+	 * @returns boolean Whether the specified permission is present
 	 */
 	const hasAccessByCodes = (permission?: string | Array<string>) => {
 		if (!permission)
 			return false;
-		/** 从当前路由的 `handle` 字段里获取按钮级别的所有自定义 `code` 值 */
+		/** Get all custom button-level `code` values from the current route's `handle` field */
 		const metaAuth = currentRoute?.handle?.permissions;
 		if (!metaAuth) {
 			return false;
@@ -32,7 +30,7 @@ export function useAccess() {
 		permission = isString(permission) ? [permission] : permission;
 		permission = permission.map(item => item.toLowerCase());
 		if (import.meta.env.DEV) {
-			// 校验权限代码是否合法，不合法的权限代码会打印警告信息
+			// Validate that the permission codes are legal; a warning is logged for invalid ones
 			for (const code of permission) {
 				if (!Object.values(accessControlCodes).includes(code)) {
 					console.warn(`[hasAccessByCodes]: '${code}' is not a valid permission code`);
@@ -44,10 +42,9 @@ export function useAccess() {
 	};
 
 	/**
-	 * @zh 根据角色判断当前用户是否具有指定权限，当前系统设计为输入角色 id 来判断的
-	 * @en Determine whether the current user has a specified permission based on roles
-	 * @param roles 全部小写的权限名称或权限名称数组，比如 `["admin", "super", "user"]`。
-	 * @returns boolean 是否具有指定权限
+	 * Determine whether the current user has a specified permission based on roles; the current system is designed to check this by role id
+	 * @param roles An all-lowercase permission name or array of permission names, e.g. `["admin", "super", "user"]`.
+	 * @returns boolean Whether the specified permission is present
 	 */
 	const hasAccessByRoles = (roles?: string | Array<string>) => {
 		if (!roles || !userRoles) {
@@ -56,7 +53,7 @@ export function useAccess() {
 		roles = isString(roles) ? [roles] : roles;
 		roles = roles.map(item => item.toLowerCase());
 		if (import.meta.env.DEV) {
-			// 校验角色是否合法，不合法的角色会打印警告信息
+			// Validate that the roles are legal; a warning is logged for invalid ones
 			for (const roleItem of roles) {
 				if (!Object.values(AccessControlRoles).includes(roleItem)) {
 					console.warn(`[hasAccessByRoles]: '${roleItem}' is not a valid role`);

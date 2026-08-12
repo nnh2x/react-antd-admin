@@ -1,18 +1,18 @@
 import type { MenuProps } from "antd";
 
-import { BasicButton } from "#src/components/basic-button";
-import { cn } from "#src/utils/cn";
-
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
+
 import { useState } from "react";
+import { BasicButton } from "#src/components/basic-button";
+import { cn } from "#src/utils/cn";
 
 import { useDropdownMenu } from "../hooks/use-dropdown-menu";
 
 /**
- * TabOptions组件的属性接口
+ * Props interface of the TabOptions component
  * @interface TabOptionsProps
- * @property {string} activeKey - 当前激活的标签页的key
+ * @property {string} activeKey - the key of the currently active tab
  */
 interface TabOptionsProps {
 	activeKey: string
@@ -20,27 +20,27 @@ interface TabOptionsProps {
 }
 
 /**
- * TabOptions组件
- * 用于显示标签页的操作选项下拉菜单
- * @param {TabOptionsProps} props - 组件属性
- * @returns {JSX.Element} TabOptions组件
+ * TabOptions component
+ * Used to display the tab's action options dropdown menu
+ * @param {TabOptionsProps} props - component props
+ * @returns {JSX.Element} the TabOptions component
  */
 export function TabOptions({ activeKey, className }: TabOptionsProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [items, onClickMenu] = useDropdownMenu();
 
 	/**
-	 * 处理下拉菜单的显示状态变化
-	 * @param {boolean} open - 菜单是否打开
+	 * Handle the display state change of the dropdown menu
+	 * @param {boolean} open - whether the menu is open
 	 */
 	const onOpenChange = (open: boolean) => {
 		setIsOpen(open);
 	};
 
 	/**
-	 * 处理菜单项点击事件
-	 * @param {object} param - 点击事件参数
-	 * @param {string} param.key - 被点击的菜单项的key
+	 * Handle the menu item click event
+	 * @param {object} param - click event parameters
+	 * @param {string} param.key - the key of the clicked menu item
 	 */
 	const onClick: MenuProps["onClick"] = ({ key }) => {
 		onClickMenu(key, activeKey);

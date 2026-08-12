@@ -1,10 +1,3 @@
-import { AntdApp } from "#src/components/antd-app";
-import { JSSThemeProvider } from "#src/components/jss-theme-provider";
-import { usePreferences } from "#src/hooks/use-preferences";
-import { useScrollToHash } from "#src/hooks/use-scroll-to-hash";
-import { AppVersionMonitor } from "#src/layout/widgets/version-monitor";
-import { ANT_DESIGN_LOCALE } from "#src/locales";
-
 import { StyleProvider } from "@ant-design/cssinjs";
 import { theme as antdTheme, ConfigProvider } from "antd";
 import dayjs from "dayjs";
@@ -12,9 +5,16 @@ import { Suspense, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { RouterProvider } from "react-router/dom";
 
+import { AntdApp } from "#src/components/antd-app";
+import { JSSThemeProvider } from "#src/components/jss-theme-provider";
+import { usePreferences } from "#src/hooks/use-preferences";
+import { useScrollToHash } from "#src/hooks/use-scroll-to-hash";
+import { AppVersionMonitor } from "#src/layout/widgets/version-monitor";
+import { ANT_DESIGN_LOCALE } from "#src/locales";
+
 import { router } from "./router";
 import { customAntdDarkTheme, customAntdLightTheme } from "./styles/theme/antd/antd-theme";
-import "dayjs/locale/zh-cn";
+import "dayjs/locale/vi";
 
 export default function App() {
 	const { i18n } = useTranslation();
@@ -51,8 +51,8 @@ export default function App() {
 		if (language === "en-US") {
 			dayjs.locale("en");
 		}
-		else if (language === "zh-CN") {
-			dayjs.locale("zh-cn");
+		else if (language === "vi-VN") {
+			dayjs.locale("vi");
 		}
 	}, [language]);
 
@@ -98,7 +98,7 @@ export default function App() {
 	}, [theme, setEmulateTheme]);
 
 	/**
-	 * 更新页面颜色模式（灰色、色弱）
+	 * Update the page color mode (grayscale, color-weak)
 	 */
 	const updateColorMode = () => {
 		const dom = document.documentElement;

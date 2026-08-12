@@ -1,17 +1,17 @@
 import type { ButtonProps } from "antd";
 
-import { BasicButton } from "#src/components/basic-button";
-import { useDeviceType } from "#src/hooks/use-device-type";
-import { usePreferences } from "#src/hooks/use-preferences";
-import { loginPath } from "#src/router/extra-info";
-import { useAuthStore } from "#src/store/auth";
-import { usePreferencesStore } from "#src/store/preferences";
-
 import { CopyOutlined, RedoOutlined, RocketOutlined, SettingOutlined } from "@ant-design/icons";
 import { theme as antdTheme, Badge, ConfigProvider, Divider, Drawer, FloatButton } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { BasicButton } from "#src/components/basic-button";
+
+import { useDeviceType } from "#src/hooks/use-device-type";
+import { usePreferences } from "#src/hooks/use-preferences";
+import { loginPath } from "#src/router/extra-info";
+import { useAuthStore } from "#src/store/auth";
+import { usePreferencesStore } from "#src/store/preferences";
 
 import {
 	Animation,
@@ -64,7 +64,7 @@ export function Preferences({ ...restProps }: ButtonProps) {
 			<ConfigProvider
 				theme={{
 					/**
-					 * 当侧边栏深色模式，且是顶部导航或者混合导航时，会影响下面组件的样式，所以这里要重置算法
+					 * When the sidebar is in dark mode and the navigation is top or mixed, it affects the style of the components below, so the algorithm needs to be reset here
 					 */
 					algorithm: isDark
 						? antdTheme.darkAlgorithm

@@ -19,26 +19,21 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-          cache: pnpm
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install and Build 🔧
         run: |
-          pnpm install -r
-          pnpm run build && pnpm --filter docs run docs:build
+          yarn install --immutable
+          yarn build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
           clean: true
-
-      - name: Deploy Docs 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          clean: true
-          folder: docs/.vitepress/dist
-          target-folder: docs

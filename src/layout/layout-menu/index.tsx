@@ -1,16 +1,16 @@
 import type { MenuProps } from "antd";
 import type { MenuItemType } from "./types";
 
-import { useDeviceType } from "#src/hooks/use-device-type";
-import { usePreferences } from "#src/hooks/use-preferences";
-import { removeTrailingSlash } from "#src/router/utils/remove-trailing-slash";
-
-import { useAccessStore } from "#src/store/access";
-import { cn } from "#src/utils/cn";
-
 import { Menu } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useMatches } from "react-router";
+
+import { useDeviceType } from "#src/hooks/use-device-type";
+import { usePreferences } from "#src/hooks/use-preferences";
+
+import { removeTrailingSlash } from "#src/router/utils/remove-trailing-slash";
+import { useAccessStore } from "#src/store/access";
+import { cn } from "#src/utils/cn";
 
 import { useStyles } from "./style";
 import { getParentKeys } from "./utils";
@@ -18,10 +18,10 @@ import { getParentKeys } from "./utils";
 interface LayoutMenuProps {
 	mode?: MenuProps["mode"]
 	/**
-	 * 控制是否自动展开当前路由对应的菜单项
+	 * Controls whether to automatically expand the menu item corresponding to the current route
 	 *
 	 * Why?
-	 * 注意：当菜单模式为顶部导航模式，菜单 mode 为 horizontal，初次进入页面时，菜单不应自动展开，可以指定 autoExpandCurrentMenu 为 false 关闭自动展开功能
+	 * Note: when the menu mode is top navigation mode, and the menu mode is horizontal, the menu should not auto-expand on first entering the page. autoExpandCurrentMenu can be set to false to disable the auto-expand feature
 	 * @see https://github.com/user-attachments/assets/705ae01d-db7f-4f42-b4dd-66adba0dd68f
 	 */
 	autoExpandCurrentMenu?: boolean
@@ -80,7 +80,7 @@ export default function LayoutMenu({
 	);
 
 	const menuInlineCollapsedProp = useMemo(() => {
-		/* inlineCollapsed 只在 inline 模式可用 */
+		/* inlineCollapsed is only available in inline mode */
 		if (mode === "inline") {
 			return { inlineCollapsed: isMobile ? false : sidebarCollapsed };
 		}
@@ -89,24 +89,22 @@ export default function LayoutMenu({
 
 	const handleOpenChange: MenuProps["onOpenChange"] = (keys) => {
 		/**
-		 * 1. 手风琴模式，点击菜单项，自动关闭其他菜单
-		 * 2. 非手风琴模式且菜单是收起的，鼠标悬浮菜单自动关闭其他菜单
+		 * 1. In accordion mode, clicking a menu item automatically closes other menus
+		 * 2. In non-accordion mode with a collapsed menu, hovering over a menu automatically closes other menus
 		 *
-		 * 为什么不使用 antd menu 案例中的代码：
+		 * Why not use the code from the antd menu example:
 		 * @see https://ant.design/components/menu-cn#menu-demo-sider-current
-		 * 原因：非手风琴模式下打开多个菜单，切换到手风琴模式下，点击菜单项，不会自动关闭其他菜单
+		 * Reason: if multiple menus are opened in non-accordion mode and then it switches to accordion mode, clicking a menu item won't automatically close the other menus
 		 */
 		if (accordion || sidebarCollapsed) {
-			// eslint-disable-next-line unicorn/prefer-includes
-			const currentOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+			const currentOpenKey = keys.find(key => !openKeys.includes(key));
 			// open
 			if (currentOpenKey !== undefined) {
 				const parentKeys = menuParentKeys[currentOpenKey] || [];
 				setOpenKeys([...parentKeys, currentOpenKey]);
 			}
 			else {
-				// eslint-disable-next-line unicorn/prefer-includes
-				const currentCloseKey = openKeys.find(key => keys.indexOf(key) === -1);
+				const currentCloseKey = openKeys.find(key => !keys.includes(key));
 				// close
 				if (currentCloseKey) {
 					setOpenKeys(menuParentKeys[currentCloseKey]);
@@ -119,7 +117,7 @@ export default function LayoutMenu({
 	};
 
 	const menuOpenProps = useMemo(() => {
-		// 如果开启了手风琴模式，则需要自动展开菜单
+		// If accordion mode is enabled, the menu needs to auto-expand
 		if (autoExpandCurrentMenu) {
 			return {
 				openKeys,
@@ -130,22 +128,22 @@ export default function LayoutMenu({
 	}, [autoExpandCurrentMenu, openKeys, handleOpenChange]);
 
 	/**
-	 * 侧边菜单展开时，自动展开激活的菜单
-	 * 侧边菜单收起时，自动关闭所有激活的菜单
+	 * When the side menu expands, automatically expand the active menu
+	 * When the side menu collapses, automatically close all active menus
 	 * @see https://github.com/user-attachments/assets/df2d7b63-acf4-4faa-bea6-7616b7e69621
 	 */
 	useEffect(() => {
-		// 折叠
+		// Collapse
 		if (sidebarCollapsed) {
 			setOpenKeys([]);
 		}
-		// 展开
+		// Expand
 		else {
-			// 手风琴模式，只展开当前激活的菜单
+			// Accordion mode, only expand the currently active menu
 			if (accordion) {
 				setOpenKeys(getSelectedKeys);
 			}
-			// 非手风琴模式，展开所有激活的菜单
+			// Non-accordion mode, expand all active menus
 			else {
 				setOpenKeys((prevOpenKeys) => {
 					if (prevOpenKeys.length === 0) {
@@ -160,15 +158,14 @@ export default function LayoutMenu({
 	return (
 		<Menu
 			/**
-			 * min-w-0 flex-auto 解决在 Flex 布局中，Menu 没有按照预期响应式省略菜单
+			 * min-w-0 flex-auto solves the issue where Menu doesn't responsively truncate as expected in a Flex layout
 			 * @see https://ant-design.antgroup.com/components/menu#why-menu-do-not-responsive-collapse-in-flex-layout
 			 */
 			className={cn(
 				"!border-none min-w-0 flex-auto",
 				{
 					/**
-					 * @zh 当侧边菜单折叠时，添加背景色
-					 * @en When the side menu is collapsed, add background color
+					 * When the side menu is collapsed, add background color
 					 */
 					[classes.menuBackgroundColor]: sidebarCollapsed,
 				},
@@ -182,7 +179,7 @@ export default function LayoutMenu({
 			{...menuOpenProps}
 			selectedKeys={getSelectedKeys}
 			/**
-			 * 使用 onClick 替代 onSelect 事件，原因是当子路由激活父菜单时，点击父菜单依然可以正常导航。
+			 * Use the onClick event instead of onSelect because when a child route activates the parent menu, clicking the parent menu should still navigate normally.
 			 * @see https://github.com/user-attachments/assets/cf67a973-f210-45e4-8278-08727ab1b8ce
 			 */
 			onClick={({ key }) => handleMenuSelect?.(key, mode)}

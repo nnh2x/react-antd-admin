@@ -1,7 +1,7 @@
 /**
- * 开启后端获取路由的情况下，是否发送路由请求获取路由数据
+ * When backend route fetching is enabled, whether to send a separate route request to fetch route data
  *
- * 如果设置为 false，则不会单独发送一个请求获取路由数据，而是从用户详情接口中获取动态路由数据
- * 如果设置为 true，则会单独发送一个请求获取路由数据
+ * If set to false, no separate request is sent to fetch route data; instead, dynamic route data is obtained from the user details interface
+ * If set to true, a separate request is sent to fetch route data
  */
 export const isSendRoutingRequest = true;

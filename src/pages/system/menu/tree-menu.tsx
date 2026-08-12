@@ -1,12 +1,12 @@
 import type { TreeDataNode } from "antd";
 
-import { BasicButton } from "#src/components/basic-button";
-import { BasicContent } from "#src/components/basic-content";
-import { getAllExpandedKeys } from "#src/utils/get-all-expanded-keys";
-
 import { MinusCircleOutlined, PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import { Card, Input, Radio, Tag, Tree } from "antd";
 import { useState } from "react";
+
+import { BasicButton } from "#src/components/basic-button";
+import { BasicContent } from "#src/components/basic-content";
+import { getAllExpandedKeys } from "#src/utils/get-all-expanded-keys";
 
 const treeData: TreeDataNode[] = [
 	{
@@ -50,7 +50,7 @@ export default function Menu() {
 				>
 					<div className="flex gap-3 mb-4">
 						<Input
-							placeholder="搜索"
+							placeholder="Search"
 							className="flex-1"
 							prefix={<SearchOutlined />}
 						/>
@@ -65,8 +65,8 @@ export default function Menu() {
 								}
 							}}
 						>
-							<Radio.Button value="expand">展开</Radio.Button>
-							<Radio.Button value="collapse">折叠</Radio.Button>
+							<Radio.Button value="expand">Expand</Radio.Button>
+							<Radio.Button value="collapse">Collapse</Radio.Button>
 						</Radio.Group>
 					</div>
 					<div className="flex flex-col gap-y-1">
@@ -86,7 +86,7 @@ export default function Menu() {
 								<div className="group flex justify-between items-center">
 									<span>{node.title}</span>
 									<div className="tree-actions hidden group-hover:flex items-center gap-0.5">
-										<Tag color="processing" className="mr-0 h-fit text-xs">菜单</Tag>
+										<Tag color="processing" className="mr-0 h-fit text-xs">Menu</Tag>
 										<div>
 											<BasicButton color="primary" variant="text" size="small" icon={<PlusCircleOutlined />} />
 											<BasicButton danger type="text" size="small" icon={<MinusCircleOutlined />} />

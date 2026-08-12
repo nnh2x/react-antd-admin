@@ -1,12 +1,12 @@
-import { useDeviceType } from "#src/hooks/use-device-type";
-import { useLayoutFooterStyle, useLayoutHeaderStyle } from "#src/hooks/use-layout-style";
-import { usePreferencesStore } from "#src/store/preferences";
-import { useTabsStore } from "#src/store/tabs";
-import { cn } from "#src/utils/cn";
-
 import { RocketOutlined } from "@ant-design/icons";
 import { FloatButton, Grid, Watermark } from "antd";
 import { useEffect, useMemo } from "react";
+import { useDeviceType } from "#src/hooks/use-device-type";
+import { useLayoutFooterStyle, useLayoutHeaderStyle } from "#src/hooks/use-layout-style";
+
+import { usePreferencesStore } from "#src/store/preferences";
+import { useTabsStore } from "#src/store/tabs";
+import { cn } from "#src/utils/cn";
 
 import { ELEMENT_ID_MAIN_CONTENT, footerHeight, headerHeight, tabbarHeight } from "../constants";
 import { useLayout } from "../hooks";
@@ -26,7 +26,6 @@ const { useBreakpoint } = Grid;
 
 /**
  * Please do not use this component through lazy, otherwise the switching routing page will flash.
- * 请不要通过 lazy 使用这个组件，否则切换路由页面会发生闪动。
  *
  * NO:
  * const ContainerLayout = lazy(() => import("#src/layout/container-layout"));
@@ -67,7 +66,7 @@ export default function ContainerLayout() {
 		}
 		const currentSidebarWidth = sidebarCollapsed ? sideCollapsedWidth : sidebarWidth;
 		if (isTwoColumnNav) {
-			/* 双列导航，第一列默认宽度 */
+			/* Two-column navigation, default width of the first column */
 			return currentSidebarWidth + (firstColumnWidthInTwoColumnNavigation ?? 0);
 		}
 		if (sidebarEnableState) {
@@ -87,8 +86,7 @@ export default function ContainerLayout() {
 	]);
 
 	/**
-	 * @zh 计算 header 和 tabbar 的高度
-	 * @en Calculate the height of header and tabbar
+	 * Calculate the height of header and tabbar
 	 */
 	const headerWrapperHeight = useMemo(() => {
 		let height = headerHeight;

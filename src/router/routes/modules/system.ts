@@ -1,8 +1,8 @@
 import type { AppRouteRecordRaw } from "#src/router/types";
-import ContainerLayout from "#src/layout/container-layout";
-import { system } from "#src/router/extra-info";
-
 import { lazy } from "react";
+import ContainerLayout from "#src/layout/container-layout";
+
+import { system } from "#src/router/extra-info";
 
 const User = lazy(() => import("#src/pages/system/user"));
 const Dept = lazy(() => import("#src/pages/system/dept"));

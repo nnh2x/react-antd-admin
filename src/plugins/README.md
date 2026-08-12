@@ -1,16 +1,16 @@
-# 应用插件
+# App Plugins
 
-## 应用 Loading
+## App Loading
 
-应用加载前显示，提示用户等待。
+Displayed before the app loads, to let the user know to wait.
 
-当前包含两个 Loading 组件，文件名字分别为：
+Currently there are two Loading components, with the following file names:
 
 ### `loading.ts`
 
 <video alt="loading1" src="https://github.com/user-attachments/assets/41074b13-9bfb-4654-b1e4-95aab868e2c9" />
 
-> 系统默认的 Loading 组件。
+> The system's default Loading component.
 
 ### `loading2.ts`
 

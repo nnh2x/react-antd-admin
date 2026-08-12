@@ -1,12 +1,12 @@
-import type { BuiltinThemeType } from "#src/store/preferences/types";
 import type { ColorPickerProps } from "antd";
-
-import { usePreferencesStore } from "#src/store/preferences";
-import { cn } from "#src/utils/cn";
+import type { BuiltinThemeType } from "#src/store/preferences/types";
 
 import { ColorPicker } from "antd";
 import { useState } from "react";
+
 import { useTranslation } from "react-i18next";
+import { usePreferencesStore } from "#src/store/preferences";
+import { cn } from "#src/utils/cn";
 
 export function BuiltinTheme() {
 	const {
@@ -62,7 +62,7 @@ export function BuiltinTheme() {
 			label: (
 				<>
 					<span>{t("preferences.theme.builtin.blue")}</span>
-					<br className="zh-CN:hidden" />
+					<br />
 					<span>
 						(
 						{t("preferences.theme.builtin.title")}

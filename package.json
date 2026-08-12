@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "0.0.0",
 	"private": true,
-	"packageManager": "pnpm@11.1.2",
+	"packageManager": "yarn@4.9.2",
 	"description": "React Hooks + TypeScript + Ant Design = react-antd-admin",
 	"author": "Condor Hero",
 	"license": "MIT",
@@ -28,7 +28,7 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prepare": "simple-git-hooks",
-		"pnpm:install": "pnpm install",
+		"yarn:install": "yarn install",
 		"npm-check": "taze major -lrw",
 		"check:circular-deps": "ds src --output circular-deps.json",
 		"test": "vitest"
@@ -51,7 +51,6 @@
 		"ky": "^2.0.2",
 		"motion": "^12.38.0",
 		"nprogress": "^0.2.0",
-		"pinyin-pro": "^3.28.1",
 		"react": "^19.2.6",
 		"react-countup": "^6.5.3",
 		"react-dom": "^19.2.6",
@@ -108,11 +107,11 @@
 		"vitest": "^4.1.6"
 	},
 	"simple-git-hooks": {
-		"pre-commit": "npx lint-staged",
-		"commit-msg": "npx commitlint --edit"
+		"pre-commit": "yarn lint-staged",
+		"commit-msg": "yarn commitlint --edit"
 	},
 	"lint-staged": {
-		"*": [
+		"*.{js,jsx,ts,tsx}": [
 			"eslint --fix"
 		]
 	}

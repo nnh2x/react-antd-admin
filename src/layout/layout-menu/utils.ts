@@ -1,14 +1,14 @@
 import type { ReactElement } from "react";
 
 import type { MenuItemType } from "./types";
-import { isString } from "#src/utils/is";
 import { cloneElement, isValidElement } from "react";
+import { isString } from "#src/utils/is";
 
 /**
- * 将菜单树中的所有 label 转换为国际化文本
- * @param menus 原始菜单数组
- * @param t Translation 函数
- * @returns 转换后的菜单数组
+ * Convert all labels in the menu tree to internationalized text
+ * @param menus original menu array
+ * @param t Translation function
+ * @returns the converted menu array
  */
 export function translateMenus(menus: MenuItemType[], t: (key: string) => string): MenuItemType[] {
 	return menus.map((menu) => {
@@ -34,11 +34,11 @@ export function translateMenus(menus: MenuItemType[], t: (key: string) => string
 }
 
 /**
- * 通过路径查找菜单
+ * Find a menu by path
  *
- * @param list 菜单列表
- * @param path 菜单路径
- * @returns 找到的菜单对象，未找到则返回 null
+ * @param list menu list
+ * @param path menu path
+ * @returns the found menu object, or null if not found
  */
 export function findMenuByPath(
 	list: MenuItemType[],
@@ -57,23 +57,23 @@ export function findMenuByPath(
 }
 
 /**
- * 通过路径查找根菜单
+ * Find the root menu by path
  *
- * @param menus 菜单列表
- * @param path 菜单路径，可选
- * @returns 包含查找到的菜单、根菜单和根菜单路径的对象
+ * @param menus menu list
+ * @param path menu path, optional
+ * @returns an object containing the found menu, root menu, and root menu path
  */
 export function findRootMenuByPath(menus: MenuItemType[], path?: string): {
 	findMenu: MenuItemType | null
 	rootMenu: MenuItemType | null
 	rootMenuPath: string | null
 } {
-	// 初始化返回值
+	// Initialize the return values
 	let findMenu: MenuItemType | null = null;
 	let rootMenu: MenuItemType | null = null;
 	let rootMenuPath: string | null = null;
 
-	// 如果没有提供路径，返回默认值
+	// If no path is provided, return the default values
 	if (!path) {
 		return {
 			findMenu: null,
@@ -82,32 +82,32 @@ export function findRootMenuByPath(menus: MenuItemType[], path?: string): {
 		};
 	}
 
-	// 递归查找函数
+	// Recursive lookup function
 	const find = (
 		list: MenuItemType[],
 		targetPath: string,
 		parents: MenuItemType[] = [],
 	): boolean => {
 		for (const menu of list) {
-			// 如果找到目标菜单
+			// If the target menu is found
 			if (menu.key === targetPath) {
 				findMenu = menu;
-				// 如果没有父级菜单，说明当前菜单就是根菜单
+				// If there is no parent menu, the current menu is the root menu
 				if (parents.length === 0) {
 					rootMenu = menu;
 					rootMenuPath = menu.key;
 				}
 				else {
-					// 获取最顶层的父级菜单
+					// Get the top-most parent menu
 					rootMenu = parents[0];
 					rootMenuPath = parents[0].key;
 				}
 				return true;
 			}
 
-			// 如果有子菜单，继续递归查找
+			// If there are submenus, continue the recursive lookup
 			if (menu.children && menu.children.length > 0) {
-				// 将当前菜单加入父级菜单数组
+				// Add the current menu to the parent menu array
 				const found = find(menu.children, targetPath, [...parents, menu]);
 				if (found) {
 					return true;
@@ -117,7 +117,7 @@ export function findRootMenuByPath(menus: MenuItemType[], path?: string): {
 		return false;
 	};
 
-	// 开始查找
+	// Start the lookup
 	find(menus, path);
 
 	return {
@@ -128,34 +128,34 @@ export function findRootMenuByPath(menus: MenuItemType[], path?: string): {
 }
 
 /**
- * 递归查找第一个子菜单路径下的最深层级的第一个菜单项
+ * Recursively find the first menu item at the deepest level under the first submenu path
  *
- * @param splitSideNavItems 菜单列表
- * @returns 找到的最深层级的第一个菜单项
+ * @param splitSideNavItems menu list
+ * @returns the found first menu item at the deepest level
  */
 export function findDeepestFirstItem(splitSideNavItems: MenuItemType[]): MenuItemType | null {
-	// 如果列表为空，返回 null
+	// If the list is empty, return null
 	if (!splitSideNavItems || splitSideNavItems.length === 0) {
 		return null;
 	}
 
-	// 获取第一个菜单项
+	// Get the first menu item
 	const firstItem = splitSideNavItems[0];
 
-	// 如果当前项有子菜单，继续递归查找
+	// If the current item has submenus, continue the recursive lookup
 	if (firstItem.children && firstItem.children.length > 0) {
 		return findDeepestFirstItem(firstItem.children);
 	}
 
-	// 如果没有子菜单了，说明到达最底层，返回当前项
+	// If there are no more submenus, the deepest level has been reached, so return the current item
 	return firstItem;
 }
 
 /**
- * 获取菜单项中所有键及其对应的层级
+ * Get all keys in the menu items and their corresponding levels
  *
- * @param menuItems1 菜单项数组
- * @returns 一个对象，键为菜单项的 key，值为菜单项的层级
+ * @param menuItems1 array of menu items
+ * @returns an object whose keys are the menu item keys and values are the menu item levels
  */
 export function getLevelKeys(menuItems1: MenuItemType[]) {
 	const key: Record<string, number> = {};
@@ -174,20 +174,20 @@ export function getLevelKeys(menuItems1: MenuItemType[]) {
 };
 
 /**
- * 获取菜单项的父级键
+ * Get the parent keys of the menu items
  *
- * @param menuItems 菜单项数组
- * @returns 返回记录每个菜单项键对应的父级键数组的对象
+ * @param menuItems array of menu items
+ * @returns an object recording the array of parent keys corresponding to each menu item key
  */
 export function getParentKeys(menuItems: MenuItemType[]): Record<string, string[]> {
 	const parentKeyMap: Record<string, string[]> = {};
 
 	function traverse(items: MenuItemType[], parentKeys: string[] = []) {
 		for (const item of items) {
-			// 记录当前 key 的父级 key 数组
+			// Record the parent key array of the current key
 			parentKeyMap[item.key] = [...parentKeys];
 
-			// 如果有子节点，递归遍历
+			// If there are child nodes, traverse recursively
 			if (Array.isArray(item.children) && item.children.length) {
 				traverse(item.children, [...parentKeys, item.key]);
 			}

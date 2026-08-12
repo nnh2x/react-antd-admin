@@ -1,17 +1,17 @@
+import { theme } from "antd";
+import { KeepAlive, useKeepAliveRef } from "keepalive-for-react";
+import { useEffect, useMemo } from "react";
+import { useLocation, useOutlet } from "react-router";
 import { GlobalSpin } from "#src/components/global-spin";
 import { Scrollbar } from "#src/components/scrollbar";
 import { useLayoutContentStyle } from "#src/hooks/use-layout-style";
 import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT, ELEMENT_ID_MAIN_CONTENT } from "#src/layout/constants";
+
 import LayoutFooter from "#src/layout/layout-footer";
 import { useAccessStore } from "#src/store/access";
 import { usePreferencesStore } from "#src/store/preferences";
+
 import { useTabsStore } from "#src/store/tabs";
-
-import { theme } from "antd";
-import { KeepAlive, useKeepAliveRef } from "keepalive-for-react";
-import { useEffect, useMemo } from "react";
-
-import { useLocation, useOutlet } from "react-router";
 
 export interface LayoutContentProps { }
 
@@ -41,7 +41,7 @@ export default function LayoutContent() {
 	}, [pathname, search]);
 
 	/**
-	 * 当使用关闭当前标签页、关闭右侧标签页、关闭左侧标签页、关闭其他标签页、关闭所有标签页功能时，需要清除这个标签页的缓存
+	 * When using the close current tab, close tabs to the right, close tabs to the left, close other tabs, or close all tabs functions, the cache for that tab needs to be cleared
 	 */
 	useEffect(() => {
 		const cacheNodes = aliveRef.current?.getCacheNodes?.();
@@ -53,13 +53,13 @@ export default function LayoutContent() {
 	}, [openTabs]);
 
 	/**
-	 * 关闭多 tab 功能，清空所有的缓存页面
+	 * When the multi-tab feature is disabled, clear all cached pages
 	 */
 	useEffect(() => {
 		if (!tabbarEnable) {
 			const cacheNodes = aliveRef.current?.getCacheNodes?.();
 			cacheNodes?.forEach((node) => {
-				/* 不包含当前页面 */
+				/* Excludes the current page */
 				if (node.cacheKey !== cacheKey) {
 					aliveRef.current?.destroy(node.cacheKey);
 				}
@@ -67,19 +67,19 @@ export default function LayoutContent() {
 		}
 	}, [tabbarEnable]);
 
-	/* KeepAlive 的刷新 */
+	/* Refresh of KeepAlive */
 	useEffect(() => {
-		/* 仅在启用标签栏时生效 */
+		/* Only takes effect when the tab bar is enabled */
 		if (tabbarEnable && isRefresh) {
 			aliveRef.current?.refresh();
 		}
 	}, [isRefresh]);
 
-	/* 路由设置 keepAlive = false 则不缓存页面 */
+	/* If a route sets keepAlive = false, the page is not cached */
 	const keepAliveExclude = useMemo(() => {
 		/**
-		 * 如果不开启多 tab 功能，则不需要 KeepAlive 功能
-		 * 为了保留页面的切换动画，只需要把所有的路由放到 exclude 数组中
+		 * If the multi-tab feature is not enabled, the KeepAlive feature is not needed
+		 * To preserve the page transition animation, all routes just need to be put into the exclude array
 		 */
 		if (!tabbarEnable) {
 			return Object.keys(flatRouteList);

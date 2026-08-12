@@ -1,12 +1,12 @@
 import type { MenuProps } from "antd";
 import type { MenuItemType } from "../layout-menu/types";
 
-import { Scrollbar } from "#src/components/scrollbar";
-import { usePreferences } from "#src/hooks/use-preferences";
 import { ConfigProvider, Menu } from "antd";
-
 import { clsx } from "clsx";
 import { createUseStyles } from "react-jss";
+
+import { Scrollbar } from "#src/components/scrollbar";
+import { usePreferences } from "#src/hooks/use-preferences";
 
 import { headerHeight } from "../constants";
 import { Logo } from "../widgets/logo";
@@ -72,7 +72,7 @@ export default function FirstColumnMenu({
 						items={menus as MenuProps["items"]}
 						theme={isDark ? "dark" : sidebarTheme}
 						/**
-						 * 使用 onClick 替代 onSelect 事件，原因是当子路由激活父菜单时，点击父菜单依然可以正常导航。
+						 * Use the onClick event instead of onSelect because when a child route activates the parent menu, clicking the parent menu should still navigate normally.
 						 * @see https://github.com/user-attachments/assets/cf67a973-f210-45e4-8278-08727ab1b8ce
 						 */
 						onClick={({ key }) => handleMenuSelect?.(key, "horizontal")}

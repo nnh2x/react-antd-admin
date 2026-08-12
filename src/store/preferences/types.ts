@@ -1,81 +1,55 @@
+import type { MenuProps } from "antd";
+
 import type {
 	MIXED_NAVIGATION,
 	SIDE_NAVIGATION,
 	TOP_NAVIGATION,
 	TWO_COLUMN_NAVIGATION,
 } from "#src/layout/widgets/preferences/blocks/layout/constants";
-
 import type { LanguageType } from "#src/locales";
-import type { MenuProps } from "antd";
 
 /**
- * @zh 登录页面布局
- * @en Login page layout
+ * Login page layout
  */
 export type PageLayoutType = "layout-left" | "layout-center" | "layout-right";
 /**
- * @zh 标签栏风格
- * @en Tabbar style
+ * Tabbar style
  */
 export type TabsStyleType = "brisk" | "card" | "chrome" | "plain";
 
 /**
- * @zh 主题类型
- * @en Theme type
+ * Theme type
  */
 export type ThemeType = "dark" | "light" | "auto";
 
 /**
- * @zh 动画类型
- * @en Animation type
+ * Animation state
  */
 interface AnimationState {
 	/**
-	 * @zh 是否启用过渡动画
-	 * @en Whether to enable transition animation
+	 * Whether to enable transition animation
 	 * @default true
 	 */
 	transitionProgress: boolean
 	/**
-	 * @zh 是否启用加载动画
-	 * @en Whether to enable loading animation
+	 * Whether to enable loading animation
 	 * @default true
 	 */
 	transitionLoading: boolean
 	/**
-	 * @zh 是否启用动画
-	 * @en Whether to enable animation
+	 * Whether to enable animation
 	 * @default true
 	 */
 	transitionEnable: boolean
 	/**
-	 * @zh 过渡动画名称
-	 * @en Transition animation name
+	 * Transition animation name
 	 * @default "fade-slide"
 	 */
 	transitionName: string
 }
 
-export type NavigationType =
-  | typeof SIDE_NAVIGATION
-  | typeof TOP_NAVIGATION
-  | typeof TWO_COLUMN_NAVIGATION
-  | typeof MIXED_NAVIGATION;
-export type BuiltinThemeType =
-  | "red"
-  | "volcano"
-  | "orange"
-  | "gold"
-  | "yellow"
-  | "lime"
-  | "green"
-  | "cyan"
-  | "blue"
-  | "geekblue"
-  | "purple"
-  | "magenta"
-  | "gray"
-  | "custom";
+export type NavigationType = typeof SIDE_NAVIGATION | typeof TOP_NAVIGATION | typeof TWO_COLUMN_NAVIGATION | typeof MIXED_NAVIGATION;
+export type BuiltinThemeType = "red" | "volcano" | "orange" | "gold" | "yellow" | "lime" | "green" | "cyan" | "blue" | "geekblue" | "purple" | "magenta" | "gray" | "custom";
 
 interface LayoutState {
 	navigationStyle: NavigationType
@@ -83,63 +57,53 @@ interface LayoutState {
 
 export interface GeneralState {
 	/**
-	 * @zh 是否开启水印
-	 * @en Whether to enable watermark
+	 * Whether to enable watermark
 	 * @default false
 	 */
 	watermark: boolean
 	/**
-	 * @zh 水印内容
-	 * @en Watermark content
+	 * Watermark content
 	 * @default ""
 	 */
 	watermarkContent: string
 	/**
-	 * @zh 返回页面顶部的操作按钮
-	 * @en BackTop makes it easy to go back to the top of the page.
+	 * BackTop makes it easy to go back to the top of the page.
 	 * @default true
 	 */
 	enableBackTopButton: boolean
 	/**
-	 * @zh 登录页面的布局配置
-	 * @en Login page layout configuration
+	 * Login page layout configuration
 	 * @default "layout-right"
 	 */
 	pageLayout: PageLayoutType
 	/**
-	 * @zh 开启前端路由权限
-	 * @en Enable frontend route permissions
+	 * Enable frontend route permissions
 	 * @default false
 	 */
 	enableFrontendAceess: boolean
 	/**
-	 * @zh 开启后端路由权限
-	 * @en Enable backend route permissions
+	 * Enable backend route permissions
 	 * @default true
 	 */
 	enableBackendAccess: boolean
 
 	/**
-	 * @zh 当前语言
-	 * @en Current language
-	 * @default "zh-CN"
+	 * Current language
+	 * @default "vi-VN"
 	 */
 	language: LanguageType
 	/**
-	 * @zh 是否开启动态标题
-	 * @en Whether to enable dynamic title
+	 * Whether to enable dynamic title
 	 * @default true
 	 */
 	enableDynamicTitle: boolean
 	/**
-	 * @zh 是否开启更新检查
-	 * @en Whether to enable update check
+	 * Whether to enable update check
 	 * @default true
 	 */
 	enableCheckUpdates: boolean
 	/**
-	 * @zh 轮训时间，单位：分钟，默认 1 分钟
-	 * @en Polling time, unit: minute, default 1 minute
+	 * Polling interval, in minutes (default: 1 minute)
 	 * @default 1
 	 */
 	checkUpdatesInterval: number
@@ -147,48 +111,47 @@ export interface GeneralState {
 
 export interface SidebarState {
 	/**
-	 * 侧边栏是否可见
+	 * Whether the sidebar is visible
 	 * @default true
 	 */
 	sidebarEnable?: boolean
 	/**
-	 * 侧边菜单宽度
+	 * Sidebar menu width
 	 * @default 210
 	 */
 	sidebarWidth: number
 	/**
-	 * 侧边菜单折叠宽度
+	 * Sidebar menu collapsed width
 	 * @default 56
 	 */
 	sideCollapsedWidth: number
 	/**
-	 * 侧边菜单折叠状态
+	 * Sidebar menu collapsed state
 	 * @default false
 	 */
 	sidebarCollapsed: boolean
 	/**
-	 * 侧边菜单是否折叠时，是否显示 title
+	 * Whether to show the title when the sidebar menu is collapsed
 	 * @default true
 	 */
 	sidebarCollapseShowTitle: boolean
 	/**
-	 * 侧边菜单折叠额外宽度
+	 * Extra width of the collapsed sidebar menu
 	 * @default 48
 	 */
 	sidebarExtraCollapsedWidth: number
 	/**
-	 * 两栏布局时，左侧菜单宽度
+	 * Width of the left menu column in the two-column layout
 	 * @default 80
 	 */
 	firstColumnWidthInTwoColumnNavigation: number
 	/**
-	 * 侧边栏主题
+	 * Sidebar theme
 	 * @default dark
 	 */
 	sidebarTheme: MenuProps["theme"]
 	/**
-	 * @zh 导航菜单手风琴模式
-	 * @en Accordion mode of navigation menu
+	 * Accordion mode of navigation menu
 	 */
 	accordion: boolean
 }
@@ -211,38 +174,32 @@ export interface PreferencesState
 	FooterState {
 	/* ================== Theme ================== */
 	/**
-	 * @zh 当前主题
-	 * @en Current theme
+	 * Current theme
 	 * @default "auto"
 	 */
 	theme: ThemeType
 	/**
-	 * @zh 是否开启色弱模式
-	 * @en Whether to enable color-blind mode
+	 * Whether to enable color-blind mode
 	 * @default false
 	 */
 	colorBlindMode: boolean
 	/**
-	 * @zh 是否开启灰色模式
-	 * @en Whether to enable gray mode
+	 * Whether to enable gray mode
 	 * @default false
 	 */
 	colorGrayMode: boolean
 	/**
-	 * @zh 主题圆角值
-	 * @en Theme radius value
+	 * Theme radius value
 	 * @default 6
 	 */
 	themeRadius: number
 	/**
-	 * @zh 主题色
-	 * @en Theme color
+	 * Theme color
 	 * @default "#1677ff" - blue
 	 */
 	themeColorPrimary: string
 	/**
-	 * @zh 内置主题
-	 * @en Builtin theme
+	 * Builtin theme
 	 * @default "blue"
 	 */
 	builtinTheme: BuiltinThemeType
@@ -250,46 +207,39 @@ export interface PreferencesState
 
 	/* ================== Tabbar ================== */
 	/**
-	 * @zh 标签栏风格
-	 * @en Tabbar style
+	 * Tabbar style
 	 * @default "chrome"
 	 */
 	tabbarStyleType: TabsStyleType
 	/**
-	 * @zh 是否启用标签栏
-	 * @en Whether to enable tabbar
+	 * Whether to enable tabbar
 	 * @default true
 	 */
 	tabbarEnable: boolean
 	/**
-	 * @zh 是否显示标签栏图标
-	 * @en Whether to show tabbar icon
+	 * Whether to show tabbar icon
 	 * @default true
-	 * @todo 待实现
+	 * @todo Not yet implemented
 	 */
 	tabbarShowIcon: boolean
 	/**
-	 * @zh 是否持久化标签栏
-	 * @en Whether to persist tabbar
+	 * Whether to persist tabbar
 	 * @default true
 	 */
 	tabbarPersist: boolean
 	/**
-	 * @zh 是否可拖拽标签栏
-	 * @en Whether to drag tabbar
+	 * Whether to drag tabbar
 	 * @default true
-	 * @todo 待实现
+	 * @todo Not yet implemented
 	 */
 	tabbarDraggable: boolean
 	/**
-	 * @zh 是否显示更多
-	 * @en Whether to show more
+	 * Whether to show more
 	 * @default true
 	 */
 	tabbarShowMore: boolean
 	/**
-	 * @zh 是否显示最大化
-	 * @en Whether to show maximize
+	 * Whether to show maximize
 	 * @default true
 	 */
 	tabbarShowMaximize: boolean

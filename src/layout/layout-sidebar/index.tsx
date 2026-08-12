@@ -1,7 +1,7 @@
-import { Scrollbar } from "#src/components/scrollbar";
-import { usePreferences } from "#src/hooks/use-preferences";
-
 import { theme as antdTheme, ConfigProvider } from "antd";
+import { Scrollbar } from "#src/components/scrollbar";
+
+import { usePreferences } from "#src/hooks/use-preferences";
 
 import { headerHeight, siderTriggerHeight } from "../constants";
 import { Logo } from "../widgets/logo";
@@ -31,7 +31,7 @@ export default function LayoutSidebar({ children, computedSidebarWidth }: Layout
 			<aside
 				style={
 					{
-						// 一个像素的 border
+						// A one-pixel border
 						width: computedSidebarWidth + 1,
 						backgroundColor: isFixedDarkTheme ? Menu?.darkItemBg : Menu?.itemBg,
 						boxShadow: "3px 0 5px 0 rgb(29, 35, 41, 0.05)",

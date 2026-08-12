@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { useMatches } from "react-router";
 
 /**
- * 获取当前路由信息
+ * Get the current route information
  *
- * @returns 当前路由的匹配结果
+ * @returns The match result for the current route
  */
 export function useCurrentRoute() {
 	const matches = useMatches();

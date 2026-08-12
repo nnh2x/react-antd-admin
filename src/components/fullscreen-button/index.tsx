@@ -1,9 +1,9 @@
 import type { ButtonProps } from "antd";
 import type { RefObject } from "react";
-import { BasicButton } from "#src/components/basic-button";
 import { FullscreenExitOutlined, FullscreenOutlined } from "@ant-design/icons";
-
 import { useFullscreen } from "ahooks";
+
+import { BasicButton } from "#src/components/basic-button";
 
 export interface FullscreenButtonProps extends Omit<ButtonProps, "target"> {
 	target: HTMLElement | (() => Element) | RefObject<Element>
@@ -12,13 +12,13 @@ export interface FullscreenButtonProps extends Omit<ButtonProps, "target"> {
 }
 
 /**
- * 全屏按钮组件
+ * Fullscreen button component
  *
- * @param target 全屏目标元素
- * @param fullscreenIcon 全屏时图标
- * @param fullscreenExitIcon 退出全屏时图标
- * @param restProps 其他属性
- * @returns 返回全屏按钮组件
+ * @param target The target element for fullscreen
+ * @param fullscreenIcon Icon shown when in fullscreen mode
+ * @param fullscreenExitIcon Icon shown when exiting fullscreen mode
+ * @param restProps Other properties
+ * @returns The fullscreen button component
  */
 export const FullscreenButton: React.FC<FullscreenButtonProps> = ({
 	target,

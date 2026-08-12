@@ -8,10 +8,10 @@ import {
 	USERNAME_REGEXP,
 } from "./regular-expressions";
 
-export const FORM_REQUIRED = [{ required: true }]; // 表单必填校验
+export const FORM_REQUIRED = [{ required: true }]; // Form required validation
 
 /**
- * 用户名规则验证函数
+ * Username rule validation function
  */
 export function USERNAME_RULES(t: TFunction<"translation", undefined>) {
 	return [
@@ -27,7 +27,7 @@ export function USERNAME_RULES(t: TFunction<"translation", undefined>) {
 }
 
 /**
- * 密码规则验证函数
+ * Password rule validation function
  *
  */
 export function PASSWORD_RULES(t: TFunction<"translation", undefined>) {
@@ -44,7 +44,7 @@ export function PASSWORD_RULES(t: TFunction<"translation", undefined>) {
 }
 
 /**
- * 仅允许字母和数字的规则函数
+ * Rule function that only allows letters and numbers
  *
  */
 export function ALPHA_NUMERIC_ONLY_RULES(t: TFunction<"translation", undefined>) {
@@ -61,7 +61,7 @@ export function ALPHA_NUMERIC_ONLY_RULES(t: TFunction<"translation", undefined>)
 }
 
 /**
- * 获取统一社会信用代码校验规则
+ * Get the Unified Social Credit Code validation rule
  *
  */
 export function UNIFIED_SOCIAL_CREDIT_CODE_RULES(t: TFunction<"translation", undefined>) {
@@ -78,7 +78,7 @@ export function UNIFIED_SOCIAL_CREDIT_CODE_RULES(t: TFunction<"translation", und
 }
 
 /**
- * 返回手机验证规则对象
+ * Return the mobile phone validation rule object
  *
  */
 export function MOBILE_PHONE_RULES(t: TFunction<"translation", undefined>) {
@@ -110,7 +110,7 @@ export function TELEPHONE_RULES(t: TFunction<"translation", undefined>) {
 export function PHONE_RULE(t: TFunction<"translation", undefined>) {
 	return {
 		validator: (_: unknown, value: string) => {
-			// 空值不校验
+			// Skip validation for empty values
 			if (!value) {
 				return Promise.resolve();
 			}

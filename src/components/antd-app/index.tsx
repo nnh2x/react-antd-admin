@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
-import { StaticAntd } from "#src/utils/static-antd";
-
 import { theme as antdTheme, App } from "antd";
+
 import { useEffect } from "react";
+import { StaticAntd } from "#src/utils/static-antd";
 
 import { setupAntdThemeTokensToHtml } from "./setup-antd-theme";
 
@@ -15,7 +15,7 @@ export function AntdApp({ children }: AntdAppProps) {
 	const { token: antdTokens } = antdTheme.useToken();
 
 	useEffect(() => {
-		/* 打印查看支持的 token */
+		/* Log to check the supported tokens */
 		// console.log("antdTokens", antdTokens);
 		setupAntdThemeTokensToHtml(antdTokens);
 	}, [antdTokens]);
