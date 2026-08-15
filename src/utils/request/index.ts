@@ -25,6 +25,14 @@ const defaultConfig: Options = {
 		limit: 3,
 	},
 	hooks: {
+		beforeError: [
+			({ error, options }) => {
+				if (!options.ignoreLoading) {
+					globalProgress.done();
+				}
+				return error;
+			},
+		],
 		beforeRequest: [
 			({ request, options }) => {
 				const ignoreLoading = options.ignoreLoading;

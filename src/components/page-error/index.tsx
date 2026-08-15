@@ -29,7 +29,7 @@ export function PageError({ error, resetErrorBoundary }: FallbackProps) {
 		if (enableDynamicTitle) {
 			document.title = t("exception.pageErrorTitle");
 		}
-	}, [enableDynamicTitle]);
+	}, [enableDynamicTitle, t]);
 
 	return (
 		<Result
@@ -59,9 +59,11 @@ export function PageError({ error, resetErrorBoundary }: FallbackProps) {
 				</Space>
 			)}
 		>
-			<Typography.Paragraph type="warning" className="text-center">
-				{(error as any)?.stack}
-			</Typography.Paragraph>
+			{import.meta.env.DEV && (
+				<Typography.Paragraph type="warning" className="text-center">
+					{(error as Error)?.stack}
+				</Typography.Paragraph>
+			)}
 
 		</Result>
 	);
